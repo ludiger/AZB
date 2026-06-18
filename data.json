@@ -2,7 +2,7 @@
   "persons": [
     "Janka",
     "Petka",
-    "Luboš",
+    "LuboÅ¡",
     "Dominika"
   ],
   "curMonth": 2,
@@ -72,6 +72,13 @@
         "firm": "stability",
         "type": "klicacka",
         "amount": 1400,
+        "desc": ""
+      },
+      {
+        "kind": "income",
+        "firm": "stability",
+        "type": "kvartalna",
+        "amount": 5300,
         "desc": ""
       }
     ],

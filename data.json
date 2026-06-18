@@ -31,6 +31,13 @@
         "type": "mesacna",
         "amount": 2700,
         "desc": ""
+      },
+      {
+        "kind": "income",
+        "firm": "stability",
+        "type": "mesacna",
+        "amount": 285,
+        "desc": ""
       }
     ],
     "3": [],

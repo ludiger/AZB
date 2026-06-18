@@ -2,10 +2,10 @@
   "persons": [
     "Janka",
     "Petka",
-    "LuboÅ¡",
+    "LuboÃÂ¡",
     "Dominika"
   ],
-  "curMonth": 4,
+  "curMonth": 5,
   "months": {
     "0": [],
     "1": [
@@ -170,7 +170,15 @@
         "desc": ""
       }
     ],
-    "5": [],
+    "5": [
+      {
+        "kind": "income",
+        "firm": "stability",
+        "type": "mesacna",
+        "amount": 2000.7,
+        "desc": ""
+      }
+    ],
     "6": [],
     "7": [],
     "8": [],

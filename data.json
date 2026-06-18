@@ -115,6 +115,13 @@
         "type": "mesacna",
         "amount": 299.69,
         "desc": ""
+      },
+      {
+        "kind": "income",
+        "firm": "autazababku",
+        "type": "kvartalna",
+        "amount": 2100,
+        "desc": ""
       }
     ],
     "3": [

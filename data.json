@@ -1,0 +1,31 @@
+{
+  "persons": [
+    "Janka",
+    "Petka",
+    "Luboš",
+    "Dominika"
+  ],
+  "curMonth": 1,
+  "months": {
+    "0": [],
+    "1": [
+      {
+        "kind": "income",
+        "firm": "stability",
+        "type": "mesacna",
+        "amount": 800,
+        "desc": ""
+      }
+    ],
+    "2": [],
+    "3": [],
+    "4": [],
+    "5": [],
+    "6": [],
+    "7": [],
+    "8": [],
+    "9": [],
+    "10": [],
+    "11": []
+  }
+}

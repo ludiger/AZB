@@ -5,7 +5,7 @@
     "LuboÃÂÃÂ¡",
     "Dominika"
   ],
-  "curMonth": 0,
+  "curMonth": 1,
   "months": {
     "0": [
       {
@@ -78,6 +78,13 @@
         "firm": "stability",
         "type": "mesacna",
         "amount": 900,
+        "desc": ""
+      },
+      {
+        "kind": "income",
+        "firm": "creatride",
+        "type": "mesacna",
+        "amount": 1508,
         "desc": ""
       }
     ],

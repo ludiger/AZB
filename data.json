@@ -226,6 +226,13 @@
         "type": "klicacka",
         "amount": 1350,
         "desc": ""
+      },
+      {
+        "kind": "income",
+        "firm": "stability",
+        "type": "kvartalna",
+        "amount": 2290,
+        "desc": ""
       }
     ],
     "6": [],

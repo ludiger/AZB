@@ -100,6 +100,13 @@
         "type": "mesacna",
         "amount": 800,
         "desc": ""
+      },
+      {
+        "kind": "income",
+        "firm": "creatride",
+        "type": "mesacna",
+        "amount": 3240,
+        "desc": ""
       }
     ],
     "2": [

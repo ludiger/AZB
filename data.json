@@ -331,6 +331,13 @@
         "type": "kvartalna",
         "amount": 7869.17,
         "desc": ""
+      },
+      {
+        "kind": "income",
+        "firm": "creatride",
+        "type": "mesacna",
+        "amount": 1720,
+        "desc": ""
       }
     ],
     "6": [],

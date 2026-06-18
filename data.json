@@ -5,7 +5,7 @@
     "LuboÃÂ¡",
     "Dominika"
   ],
-  "curMonth": 2,
+  "curMonth": 3,
   "months": {
     "0": [],
     "1": [
@@ -165,6 +165,13 @@
         "firm": "stability",
         "type": "klicacka",
         "amount": 900,
+        "desc": ""
+      },
+      {
+        "kind": "income",
+        "firm": "autazababku",
+        "type": "mesacna",
+        "amount": 247.49,
         "desc": ""
       }
     ],

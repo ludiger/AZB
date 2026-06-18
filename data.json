@@ -2,7 +2,7 @@
   "persons": [
     "Janka",
     "Petka",
-    "LuboÃÂ¡",
+    "LuboÃÂÃÂ¡",
     "Dominika"
   ],
   "curMonth": 5,
@@ -330,13 +330,6 @@
         "firm": "autazababku",
         "type": "kvartalna",
         "amount": 7869.17,
-        "desc": ""
-      },
-      {
-        "kind": "income",
-        "firm": "creatride",
-        "type": "mesacna",
-        "amount": 1720,
         "desc": ""
       },
       {

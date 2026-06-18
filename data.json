@@ -5,7 +5,7 @@
     "LuboÃÂÃÂ¡",
     "Dominika"
   ],
-  "curMonth": 2,
+  "curMonth": 1,
   "months": {
     "0": [
       {
@@ -127,13 +127,6 @@
         "firm": "creatride",
         "type": "klicacka",
         "amount": 1600,
-        "desc": ""
-      },
-      {
-        "kind": "income",
-        "firm": "cofidis",
-        "type": "mesacna",
-        "amount": 799.84,
         "desc": ""
       },
       {

@@ -249,13 +249,6 @@
         "type": "klicacka",
         "amount": 1300,
         "desc": ""
-      },
-      {
-        "kind": "income",
-        "firm": "cofidis",
-        "type": "mesacna",
-        "amount": 800,
-        "desc": ""
       }
     ],
     "3": [

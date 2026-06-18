@@ -101,6 +101,13 @@
         "type": "mesacna",
         "amount": 1700,
         "desc": ""
+      },
+      {
+        "kind": "income",
+        "firm": "autazababku",
+        "type": "mesacna",
+        "amount": 1257.2,
+        "desc": ""
       }
     ],
     "3": [

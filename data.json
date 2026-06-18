@@ -66,6 +66,13 @@
         "type": "mesacna",
         "amount": 1100,
         "desc": ""
+      },
+      {
+        "kind": "income",
+        "firm": "stability",
+        "type": "klicacka",
+        "amount": 1400,
+        "desc": ""
       }
     ],
     "3": [],

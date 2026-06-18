@@ -135,6 +135,13 @@
         "type": "mesacna",
         "amount": 799.84,
         "desc": ""
+      },
+      {
+        "kind": "income",
+        "firm": "cofidis",
+        "type": "mesacna",
+        "amount": 2150,
+        "desc": ""
       }
     ],
     "2": [

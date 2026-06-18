@@ -373,13 +373,6 @@
         "type": "mesacna",
         "amount": 1000,
         "desc": ""
-      },
-      {
-        "kind": "income",
-        "firm": "creatride",
-        "type": "klicacka",
-        "amount": 1700,
-        "desc": ""
       }
     ],
     "6": [],

@@ -14,7 +14,7 @@
         "type": "mesacna",
         "amount": 1720,
         "desc": "",
-        "paid": true
+        "paid": false
       },
       {
         "kind": "income",

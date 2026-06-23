@@ -224,10 +224,32 @@ select:focus,input:focus{outline:none;border-color:#378ADD;box-shadow:0 0 0 3px 
   <!-- PREHĽAD -->
   <div id="tab-prehlad" style="display:none">
     <div class="gmtx" id="prehladCards"></div>
+
+    <!-- Súhrn košíkov -->
+    <div class="g2" style="margin-bottom:1rem">
+      <div class="card" style="margin-bottom:0">
+        <div class="ctitle" style="color:#3C3489"><i class="ti ti-basket"></i> Kvartálny košík</div>
+        <div id="qBasketSumm"></div>
+      </div>
+      <div class="card" style="margin-bottom:0">
+        <div class="ctitle" style="color:#639922"><i class="ti ti-mouse"></i> Klikačky</div>
+        <div id="klikSumm"></div>
+      </div>
+    </div>
+
     <div class="card tbl-wrap">
-      <div class="ctitle">Prehľad po mesiacoch</div>
-      <table class="tbl" style="min-width:560px">
-        <thead><tr><th>Mesiac</th><th>Príjmy</th><th>Výdavky</th><th>Zostatok</th><th>✅ Preplatené</th><th>⏳ Čaká</th><th>Záz.</th></tr></thead>
+      <div class="ctitle">Prehľad po mesiacoch — príjmy podľa typu</div>
+      <table class="tbl" style="min-width:780px">
+        <thead><tr>
+          <th>Mesiac</th>
+          <th style="color:#185FA5">Mesačná</th>
+          <th style="color:#3C3489">Kvartálna</th>
+          <th style="color:#639922">Klikačka</th>
+          <th>Výdavky</th>
+          <th>Zostatok</th>
+          <th style="color:#3B6D11">✅ Preplatené</th>
+          <th style="color:#854F0B">⏳ Čaká</th>
+        </tr></thead>
         <tbody id="prehladBody"></tbody>
         <tfoot id="prehladFoot"></tfoot>
       </table>
@@ -873,37 +895,111 @@ document.getElementById('setupModal').addEventListener('click',function(ev){
 
 // ===== PREHĽAD =====
 function renderPrehlad(){
-  let tI=0,tO=0,tP=0;
+  let tI=0,tO=0,tP=0,tMes=0,tKv=0,tKlik=0;
   const rows=MONTHS.map((mn,i)=>{
     const entries=gm(i);
     const incs=entries.filter(e=>e.kind==='income');
-    const inc=incs.reduce((a,e)=>a+e.amount,0);
+    const mes=incs.filter(e=>e.type==='mesacna').reduce((a,e)=>a+e.amount,0);
+    const kv=incs.filter(e=>e.type==='kvartalna').reduce((a,e)=>a+e.amount,0);
+    const klik=incs.filter(e=>e.type==='klicacka').reduce((a,e)=>a+e.amount,0);
+    const inc=mes+kv+klik;
     const exp=entries.filter(e=>e.kind==='expense').reduce((a,e)=>a+e.amount,0);
     const paid=incs.filter(e=>e.paid).reduce((a,e)=>a+e.amount,0);
-    const bal=inc-exp;tI+=inc;tO+=exp;tP+=paid;
-    return`<tr><td style="font-weight:600">${mn}</td>
-      <td style="color:#3B6D11;font-weight:500">${inc?eur(inc):'—'}</td>
-      <td style="color:#A32D2D;font-weight:500">${exp?eur(exp):'—'}</td>
+    const bal=inc-exp;
+    tI+=inc;tO+=exp;tP+=paid;tMes+=mes;tKv+=kv;tKlik+=klik;
+    const d=v=>v?eur(v):'<span style="color:#ddd">—</span>';
+    return`<tr>
+      <td style="font-weight:600">${mn}</td>
+      <td style="color:#185FA5;font-weight:500">${d(mes)}</td>
+      <td style="color:#3C3489;font-weight:500">${d(kv)}</td>
+      <td style="color:#639922;font-weight:500">${d(klik)}</td>
+      <td style="color:#A32D2D;font-weight:500">${d(exp)}</td>
       <td style="font-weight:700;color:${bal>=0?'#3B6D11':'#A32D2D'}">${entries.length?eur(bal):'—'}</td>
-      <td style="color:#3B6D11">${paid?eur(paid):'—'}</td>
-      <td style="color:#854F0B">${(inc-paid)?eur(inc-paid):'—'}</td>
-      <td style="color:#aaa">${entries.length||'—'}</td></tr>`;
+      <td style="color:#3B6D11">${d(paid)}</td>
+      <td style="color:#854F0B">${d(inc-paid)}</td>
+    </tr>`;
   }).join('');
   const g=tI-tO;
   document.getElementById('prehladBody').innerHTML=rows;
-  document.getElementById('prehladFoot').innerHTML=`<tr><td>Spolu</td><td style="color:#3B6D11">${eur(tI)}</td><td style="color:#A32D2D">${eur(tO)}</td><td style="color:${g>=0?'#3B6D11':'#A32D2D'}">${eur(g)}</td><td style="color:#3B6D11">${eur(tP)}</td><td style="color:#854F0B">${eur(tI-tP)}</td><td></td></tr>`;
+  document.getElementById('prehladFoot').innerHTML=`<tr>
+    <td>Spolu</td>
+    <td style="color:#185FA5">${eur(tMes)}</td>
+    <td style="color:#3C3489">${eur(tKv)}</td>
+    <td style="color:#639922">${eur(tKlik)}</td>
+    <td style="color:#A32D2D">${eur(tO)}</td>
+    <td style="color:${g>=0?'#3B6D11':'#A32D2D'}">${eur(g)}</td>
+    <td style="color:#3B6D11">${eur(tP)}</td>
+    <td style="color:#854F0B">${eur(tI-tP)}</td>
+  </tr>`;
+
   document.getElementById('prehladCards').innerHTML=`
-    <div class="metric"><div class="mlbl">Príjmy</div><div class="mval gr">${eur(tI)}</div></div>
+    <div class="metric"><div class="mlbl">Príjmy spolu</div><div class="mval gr">${eur(tI)}</div></div>
+    <div class="metric"><div class="mlbl" style="color:#185FA5">Mesačné</div><div class="mval bl">${eur(tMes)}</div></div>
+    <div class="metric"><div class="mlbl" style="color:#3C3489">Kvartálne</div><div class="mval pu">${eur(tKv)}</div></div>
+    <div class="metric"><div class="mlbl" style="color:#639922">Klikačky</div><div class="mval" style="color:#639922">${eur(tKlik)}</div></div>
     <div class="metric"><div class="mlbl">Výdavky</div><div class="mval re">${eur(tO)}</div></div>
     <div class="metric"><div class="mlbl">Zostatok</div><div class="mval ${g>=0?'gr':'re'}">${eur(g)}</div></div>
     <div class="metric"><div class="mlbl">✅ Preplatené</div><div class="mval gr">${eur(tP)}</div></div>
     <div class="metric"><div class="mlbl">⏳ Čaká</div><div class="mval am">${eur(tI-tP)}</div></div>`;
+
+  // Súhrn košíkov
+  const qb=state.qtrBasket||[];
+  const qTot=qb.reduce((a,b)=>a+b.amount,0);
+  const qPaid=qb.filter(b=>b.paid).reduce((a,b)=>a+b.amount,0);
+  const qByQ={};
+  QTRS.forEach((q,qi)=>{
+    const key=`Q${qi+1}_2025`;
+    const items=qb.filter(b=>b.qtrKey===key);
+    const tot=items.reduce((a,b)=>a+b.amount,0);
+    const paid=items.filter(b=>b.paid).reduce((a,b)=>a+b.amount,0);
+    if(tot>0)qByQ[q.l]={tot,paid};
+  });
+  const qHtml=Object.keys(qByQ).length?
+    Object.entries(qByQ).map(([q,v])=>`<div class="srow">
+      <span style="font-weight:600">${q}</span>
+      <span style="display:flex;gap:10px;font-size:12px">
+        <span style="color:#3B6D11">✅ ${eur(v.paid)}</span>
+        <span style="color:#854F0B">⏳ ${eur(v.tot-v.paid)}</span>
+        <span style="font-weight:700">${eur(v.tot)}</span>
+      </span>
+    </div>`).join('')+
+    `<div style="display:flex;justify-content:space-between;margin-top:8px;padding-top:8px;border-top:1px solid #e8e8e4;font-size:13px;font-weight:700">
+      <span style="color:#3C3489">Spolu</span>
+      <span><span style="color:#3B6D11">✅ ${eur(qPaid)}</span> &nbsp; <span style="color:#854F0B">⏳ ${eur(qTot-qPaid)}</span></span>
+    </div>`
+    :'<p class="empty" style="padding:0.75rem">Žiadne položky v košíku</p>';
+  document.getElementById('qBasketSumm').innerHTML=qHtml;
+
+  const kb=state.klikBasket||[];
+  const kTot=kb.reduce((a,b)=>a+b.amount,0);
+  const kPaid=kb.filter(b=>b.paid).reduce((a,b)=>a+b.amount,0);
+  const kByM={};
+  kb.forEach(b=>{if(!kByM[b.fromMonth])kByM[b.fromMonth]={tot:0,paid:0};kByM[b.fromMonth].tot+=b.amount;if(b.paid)kByM[b.fromMonth].paid+=b.amount;});
+  const kHtml=Object.keys(kByM).length?
+    Object.entries(kByM).sort((a,b)=>a[0]-b[0]).map(([mi,v])=>`<div class="srow">
+      <span style="font-weight:600">${MONTHS[mi]}</span>
+      <span style="display:flex;gap:10px;font-size:12px">
+        <span style="color:#3B6D11">✅ ${eur(v.paid)}</span>
+        <span style="color:#854F0B">⏳ ${eur(v.tot-v.paid)}</span>
+        <span style="font-weight:700">${eur(v.tot)}</span>
+      </span>
+    </div>`).join('')+
+    `<div style="display:flex;justify-content:space-between;margin-top:8px;padding-top:8px;border-top:1px solid #e8e8e4;font-size:13px;font-weight:700">
+      <span style="color:#639922">Spolu</span>
+      <span><span style="color:#3B6D11">✅ ${eur(kPaid)}</span> &nbsp; <span style="color:#854F0B">⏳ ${eur(kTot-kPaid)}</span></span>
+    </div>`
+    :'<p class="empty" style="padding:0.75rem">Žiadne klikačky</p>';
+  document.getElementById('klikSumm').innerHTML=kHtml;
+
   destroyChart('chartPrehlad');
   charts['chartPrehlad']=new Chart(document.getElementById('chartPrehlad'),{type:'bar',
     data:{labels:MS,datasets:[
-      {label:'Príjmy',data:MONTHS.map((_,i)=>f2(gm(i).filter(e=>e.kind==='income').reduce((a,e)=>a+e.amount,0))),backgroundColor:'#3B6D11',borderWidth:0},
+      {label:'Mesačná',data:MONTHS.map((_,i)=>f2(gm(i).filter(e=>e.kind==='income'&&e.type==='mesacna').reduce((a,e)=>a+e.amount,0))),backgroundColor:'#185FA5',borderWidth:0},
+      {label:'Kvartálna',data:MONTHS.map((_,i)=>f2(gm(i).filter(e=>e.kind==='income'&&e.type==='kvartalna').reduce((a,e)=>a+e.amount,0))),backgroundColor:'#3C3489',borderWidth:0},
+      {label:'Klikačka',data:MONTHS.map((_,i)=>f2(gm(i).filter(e=>e.kind==='income'&&e.type==='klicacka').reduce((a,e)=>a+e.amount,0))),backgroundColor:'#639922',borderWidth:0},
       {label:'Výdavky',data:MONTHS.map((_,i)=>f2(gm(i).filter(e=>e.kind==='expense').reduce((a,e)=>a+e.amount,0))),backgroundColor:'#E24B4A',borderWidth:0}
-    ]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{ticks:{autoSkip:false,maxRotation:0,font:{size:10}}},y:{ticks:{callback:v=>v+'€',font:{size:10}}}}}
+    ]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{font:{size:11},boxWidth:12}}},
+      scales:{x:{stacked:true,ticks:{autoSkip:false,maxRotation:0,font:{size:10}}},y:{stacked:true,ticks:{callback:v=>v+'€',font:{size:10}}}}}
   });
 }
 

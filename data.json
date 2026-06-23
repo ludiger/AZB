@@ -2,10 +2,10 @@
   "persons": [
     "Janka",
     "Petka",
-    "LuboÃÂÃÂ¡",
+    "LuboÃÂÃÂÃÂÃÂ¡",
     "Dominika"
   ],
-  "curMonth": 4,
+  "curMonth": 0,
   "months": {
     "0": [
       {
@@ -13,7 +13,8 @@
         "firm": "creatride",
         "type": "mesacna",
         "amount": 1720,
-        "desc": ""
+        "desc": "",
+        "paid": true
       },
       {
         "kind": "income",

@@ -37,7 +37,8 @@
         "firm": "creatride",
         "type": "mesacna",
         "amount": 800,
-        "desc": ""
+        "desc": "",
+        "paid": true
       },
       {
         "kind": "income",
@@ -594,6 +595,15 @@
       "fromMonth": 0,
       "paid": false,
       "addedAt": "2026-06-23T20:48:21.716Z"
+    },
+    {
+      "firm": "creatride",
+      "type": "klicacka",
+      "amount": 100,
+      "desc": "",
+      "fromMonth": 0,
+      "paid": false,
+      "addedAt": "2026-06-23T20:49:00.912Z"
     }
   ]
 }

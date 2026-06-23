@@ -1,0 +1,1147 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Evidencia provízií 2025</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f5f5f3;color:#1a1a18;font-size:14px}
+.app{max-width:1100px;margin:0 auto;padding:1.5rem}
+h1{font-size:20px;font-weight:600;margin-bottom:4px}
+.hdr{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:10px;margin-bottom:1rem}
+.subtitle{font-size:13px;color:#666;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.sync{font-size:12px;padding:2px 10px;border-radius:99px;font-weight:500}
+.sync.ok{background:#EAF3DE;color:#3B6D11}
+.sync.saving{background:#FAEEDA;color:#854F0B}
+.sync.err{background:#FCEBEB;color:#A32D2D}
+.sync.loading{background:#E6F1FB;color:#185FA5}
+.tabs{display:flex;gap:0;margin-bottom:1.5rem;border-bottom:2px solid #e0e0dc;flex-wrap:wrap}
+.tab{padding:8px 18px;border:none;background:transparent;cursor:pointer;font-size:13px;color:#888;border-bottom:2px solid transparent;margin-bottom:-2px;transition:all .15s;font-weight:500}
+.tab.active{color:#0C447C;border-bottom:2px solid #378ADD}
+.tab:hover:not(.active){color:#333;background:#f0f0ee}
+.mbtns{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:1.25rem}
+.mbtn{padding:5px 12px;border-radius:8px;border:1px solid #ddd;background:#fff;cursor:pointer;font-size:12px;color:#666;font-weight:500}
+.mbtn.active{background:#0C447C;color:#fff;border-color:#0C447C}
+.mbtn.has{border-color:#3B6D11;color:#3B6D11}
+.mbtn.active.has{background:#0C447C;color:#fff}
+.card{background:#fff;border:1px solid #e0e0dc;border-radius:12px;padding:1.25rem;margin-bottom:1rem}
+.ctitle{font-size:14px;font-weight:600;margin-bottom:1rem;display:flex;align-items:center;gap:8px}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.gmtx{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:8px;margin-bottom:1rem}
+.metric{background:#f5f5f3;border-radius:10px;padding:12px;border:1px solid #e8e8e4}
+.mlbl{font-size:10px;color:#888;margin-bottom:4px;text-transform:uppercase;letter-spacing:.04em;font-weight:600}
+.mval{font-size:18px;font-weight:700}
+.mval.bl{color:#185FA5}.mval.gr{color:#3B6D11}.mval.am{color:#854F0B}.mval.re{color:#A32D2D}.mval.pu{color:#3C3489}.mval.co{color:#712B13}.mval.pk{color:#72243E}
+.msub{font-size:11px;color:#999;margin-top:2px}
+.frow{display:flex;align-items:center;gap:8px;margin-bottom:10px;flex-wrap:wrap}
+.flbl{font-size:12px;color:#555;min-width:120px;font-weight:500}
+select,input[type=number],input[type=text],input[type=password]{font-size:13px;padding:7px 10px;border-radius:8px;border:1px solid #ddd;background:#fff;color:#1a1a18;transition:border .15s}
+select:focus,input:focus{outline:none;border-color:#378ADD;box-shadow:0 0 0 3px rgba(55,138,221,.1)}
+.full{width:100%}
+.btn{padding:7px 16px;border-radius:8px;border:1px solid #ddd;background:#fff;cursor:pointer;font-size:13px;color:#333;font-weight:500;display:inline-flex;align-items:center;gap:6px;transition:all .15s}
+.btn:hover{background:#f0f0ee}
+.btn.pri{background:#0C447C;border-color:#0C447C;color:#fff}
+.btn.pri:hover{background:#185FA5}
+.btn.grn{background:#3B6D11;border-color:#3B6D11;color:#fff}
+.btn.grn:hover{background:#4d8c16}
+.btn.red{background:#fff;border-color:#F09595;color:#A32D2D}
+.btn.red:hover{background:#FCEBEB}
+.btn.sm{padding:4px 9px;font-size:12px}
+.bdg{display:inline-block;padding:2px 8px;border-radius:99px;font-size:10px;font-weight:600;white-space:nowrap}
+.bdg.st{background:#E6F1FB;color:#0C447C}
+.bdg.cr{background:#EAF3DE;color:#3B6D11}
+.bdg.au{background:#FAECE7;color:#712B13}
+.bdg.cf{background:#FBEAF0;color:#72243E}
+.bdg.out{background:#FAEEDA;color:#854F0B}
+.entry{display:flex;align-items:center;gap:6px;padding:8px 10px;border-radius:8px;margin-bottom:4px;border:1px solid #eee;flex-wrap:wrap}
+.entry.inc{border-left:3px solid #3B6D11}
+.entry.exp{border-left:3px solid #E24B4A}
+.entry.inc.done{background:#f8fff4;border-left-color:#97C459;opacity:.8}
+.enum{font-size:11px;color:#aaa;min-width:22px;font-weight:600}
+.edesc{font-size:12px;color:#666;flex:1;min-width:40px}
+.eamt{font-size:13px;font-weight:700;white-space:nowrap}
+.eamt.pos{color:#3B6D11}
+.eamt.neg{color:#A32D2D}
+.eamt.pos.done{color:#97C459}
+.ssep{font-size:11px;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:.05em;padding:8px 0 5px;border-bottom:1px solid #e8e8e4;margin-bottom:6px;display:flex;align-items:center;gap:6px}
+.tbl{width:100%;border-collapse:collapse;font-size:12px}
+.tbl th{text-align:left;padding:5px 7px;color:#888;font-weight:600;font-size:10px;text-transform:uppercase;letter-spacing:.04em;border-bottom:1px solid #e8e8e4}
+.tbl td{padding:6px 7px;border-bottom:1px solid #f0f0ee;color:#1a1a18;vertical-align:middle}
+.tbl tr:last-child td{border-bottom:none}
+.tbl tr:hover td{background:#fafaf8}
+.tbl-wrap{overflow-x:auto}
+.tbl tfoot td{background:#f5f5f3;font-weight:700;border-top:2px solid #e0e0dc}
+.srow{display:flex;justify-content:space-between;align-items:center;padding:5px 0;font-size:13px;border-bottom:1px solid #f0f0ee}
+.srow:last-child{border-bottom:none}
+.sv{font-weight:600}
+.bar-row{display:flex;align-items:center;gap:10px;margin-bottom:6px}
+.bar-lbl{font-size:12px;color:#555;min-width:100px;font-weight:500}
+.bar-track{flex:1;height:8px;background:#f0f0ee;border-radius:4px;overflow:hidden}
+.bar-fill{height:100%;border-radius:4px;transition:width .4s}
+.bar-val{font-size:12px;font-weight:700;min-width:80px;text-align:right}
+.chip{display:inline-flex;align-items:center;gap:6px;background:#f0f0ee;border-radius:99px;padding:4px 12px;font-size:12px;margin:3px;border:1px solid #e0e0dc}
+.chip .rm{cursor:pointer;color:#aaa;font-size:16px;font-weight:700;line-height:1}
+.chip .rm:hover{color:#A32D2D}
+.empty{color:#bbb;font-size:13px;text-align:center;padding:2rem;font-style:italic}
+.toast{position:fixed;bottom:24px;right:24px;background:#1a1a18;color:#fff;padding:10px 18px;border-radius:10px;font-size:13px;font-weight:500;z-index:9999;opacity:0;transition:opacity .3s;pointer-events:none}
+.toast.show{opacity:1}
+.split-box{background:#f0f7ff;border:1px solid #c0d8f0;border-radius:10px;padding:12px;margin-bottom:10px}
+.split-title{font-size:12px;font-weight:700;color:#185FA5;margin-bottom:8px;display:flex;align-items:center;gap:6px}
+.split-check{font-size:12px;margin-top:6px;min-height:18px}
+/* MODAL */
+.modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:500;justify-content:center;align-items:center}
+.modal-bg.open{display:flex}
+.modal-box{background:#fff;border-radius:16px;padding:1.5rem;width:440px;max-width:95vw;max-height:92vh;overflow-y:auto;box-shadow:0 8px 40px rgba(0,0,0,.2)}
+.modal-hdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:1.25rem}
+.modal-title{font-size:16px;font-weight:700}
+.modal-close{border:none;background:none;cursor:pointer;font-size:24px;color:#aaa;line-height:1;padding:0}
+.modal-close:hover{color:#333}
+@media(max-width:600px){.g2{grid-template-columns:1fr}.app{padding:1rem}}
+</style>
+</head>
+<body>
+<div class="toast" id="toast"></div>
+
+<div class="app">
+  <div class="hdr">
+    <div>
+      <h1><i class="ti ti-cash" style="color:#378ADD;margin-right:6px"></i>Evidencia provízií 2025</h1>
+      <div class="subtitle">
+        Stability · Creatride · Autazababku · Cofidis
+        <span class="sync loading" id="syncStatus">Načítavam...</span>
+      </div>
+    </div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap">
+      <button class="btn sm" onclick="showSetup()"><i class="ti ti-brand-github"></i> GitHub</button>
+      <button class="btn sm" onclick="syncFromGitHub()"><i class="ti ti-refresh"></i> Sync</button>
+    </div>
+  </div>
+
+  <div class="tabs">
+    <button class="tab active" onclick="switchTab('zadavanie')"><i class="ti ti-pencil"></i> Záznamy</button>
+    <button class="tab" onclick="switchTab('prehlad')"><i class="ti ti-layout-list"></i> Prehľad</button>
+    <button class="tab" onclick="switchTab('kvartal')"><i class="ti ti-calendar-stats"></i> Kvartály</button>
+    <button class="tab" onclick="switchTab('eval')"><i class="ti ti-chart-dots"></i> Vyhodnotenie</button>
+    <button class="tab" onclick="switchTab('osoby')"><i class="ti ti-users"></i> Zamestnanci</button>
+  </div>
+
+  <!-- ZÁZNAMY -->
+  <div id="tab-zadavanie">
+    <div class="mbtns" id="monthTabs"></div>
+    <div class="g2">
+      <div class="card">
+        <div class="ctitle" style="color:#3B6D11"><i class="ti ti-arrow-down-circle"></i> Pridať príjem</div>
+        <div class="frow"><span class="flbl">Firma</span>
+          <select id="in_firm" class="full" onchange="onFirmChange()">
+            <option value="stability">Stability</option>
+            <option value="creatride">Creatride</option>
+            <option value="autazababku">Autazababku</option>
+            <option value="cofidis">Cofidis</option>
+          </select>
+        </div>
+        <div class="frow"><span class="flbl">Celková suma (€)</span>
+          <input type="number" id="in_amount" placeholder="0.00" step="0.01" class="full" oninput="onAmountChange()">
+        </div>
+        <div id="splitSection" style="display:none" class="split-box">
+          <div class="split-title"><i class="ti ti-git-fork"></i> Rozdelenie provízie</div>
+          <div class="frow" style="margin-bottom:6px">
+            <span class="flbl" style="color:#185FA5">Aktuálna fakturácia</span>
+            <input type="number" id="in_now" placeholder="0.00" step="0.01" style="width:110px" oninput="onSplitChange('now')">
+            <span style="font-size:11px;color:#888">€ → ihneď</span>
+          </div>
+          <div class="frow" style="margin-bottom:6px">
+            <span class="flbl" style="color:#3C3489">Do kvart. košíka</span>
+            <input type="number" id="in_qtr" placeholder="0.00" step="0.01" style="width:110px" oninput="onSplitChange('qtr')">
+            <span style="font-size:11px;color:#888">€ → vyplatí sa Q</span>
+          </div>
+          <div class="frow" style="margin-bottom:6px">
+            <span class="flbl" style="color:#639922">Klikačka</span>
+            <input type="number" id="in_klik" placeholder="0.00" step="0.01" style="width:110px" oninput="onSplitChange('klik')">
+            <span style="font-size:11px;color:#888">€ → koniec mesiaca</span>
+          </div>
+          <div class="split-check" id="splitCheck"></div>
+        </div>
+        <!-- Pre Cofidis — jednoduchý typ -->
+        <div id="simpleType">
+          <div class="frow"><span class="flbl">Typ</span>
+            <select id="in_type" class="full">
+              <option value="mesacna">Mesačná provízia</option>
+              <option value="kvartalna">Kvartálna odmena</option>
+              <option value="klicacka">Klikačka</option>
+            </select>
+          </div>
+        </div>
+        <div class="frow"><span class="flbl">Poznámka</span>
+          <input type="text" id="in_desc" placeholder="Voliteľná poznámka" class="full">
+        </div>
+        <button class="btn grn full" onclick="addIncome()"><i class="ti ti-plus"></i> Pridať príjem</button>
+      </div>
+      <div class="card">
+        <div class="ctitle" style="color:#A32D2D"><i class="ti ti-arrow-up-circle"></i> Pridať výdavok</div>
+        <div class="frow"><span class="flbl">Kategória</span>
+          <select id="out_cat" class="full">
+            <option value="vyplata">Výplata zamestnanca</option>
+            <option value="prevadzka">Prevádzka</option>
+            <option value="telefon">Telefón</option>
+            <option value="pohonne">Pohonné hmoty</option>
+            <option value="material">Materiál</option>
+            <option value="ine">Iné náklady</option>
+          </select>
+        </div>
+        <div class="frow"><span class="flbl">Zamestnanec</span>
+          <select id="out_person" class="full"><option value="">— vyber —</option></select>
+        </div>
+        <div class="frow"><span class="flbl">Popis</span>
+          <input type="text" id="out_desc" placeholder="Popis výdavku" class="full">
+        </div>
+        <div class="frow"><span class="flbl">Firma</span>
+          <select id="out_firm" class="full">
+            <option value="">— neurčená —</option>
+            <option value="stability">Stability</option>
+            <option value="creatride">Creatride</option>
+            <option value="autazababku">Autazababku</option>
+            <option value="cofidis">Cofidis</option>
+          </select>
+        </div>
+        <div class="frow"><span class="flbl">Suma (€)</span>
+          <input type="number" id="out_amount" placeholder="0.00" step="0.01" class="full">
+        </div>
+        <button class="btn red full" onclick="addExpense()"><i class="ti ti-minus"></i> Pridať výdavok</button>
+      </div>
+    </div>
+    <div class="card">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;flex-wrap:wrap;gap:8px">
+        <div class="ctitle" style="margin-bottom:0" id="listTitle">Záznamy — Január</div>
+        <div id="monthBal" style="font-size:13px;font-weight:600"></div>
+      </div>
+      <div id="entryList"></div>
+    </div>
+  </div>
+
+  <!-- PREHĽAD -->
+  <div id="tab-prehlad" style="display:none">
+    <div class="gmtx" id="prehladCards"></div>
+    <div class="card tbl-wrap">
+      <div class="ctitle">Prehľad po mesiacoch</div>
+      <table class="tbl" style="min-width:560px">
+        <thead><tr><th>Mesiac</th><th>Príjmy</th><th>Výdavky</th><th>Zostatok</th><th>✅ Preplatené</th><th>⏳ Čaká</th><th>Záz.</th></tr></thead>
+        <tbody id="prehladBody"></tbody>
+        <tfoot id="prehladFoot"></tfoot>
+      </table>
+    </div>
+    <div class="card">
+      <div class="ctitle">Príjmy vs výdavky</div>
+      <div style="position:relative;height:220px"><canvas id="chartPrehlad"></canvas></div>
+    </div>
+  </div>
+
+  <!-- KVARTÁLY -->
+  <div id="tab-kvartal" style="display:none">
+    <div class="gmtx" id="qCards"></div>
+    <div id="qDetail"></div>
+    <div class="card" id="klikCard" style="display:none">
+      <div class="ctitle" style="color:#639922"><i class="ti ti-mouse"></i> Klikačky — splatné koniec mesiaca</div>
+      <div id="klikList"></div>
+    </div>
+  </div>
+
+  <!-- VYHODNOTENIE -->
+  <div id="tab-eval" style="display:none">
+    <div class="gmtx" id="evalCards"></div>
+    <div class="card">
+      <div class="ctitle"><i class="ti ti-building-bank" style="color:#378ADD"></i> Príjmy podľa firmy a položky</div>
+      <div id="evalFirms"></div>
+    </div>
+    <div class="card">
+      <div class="ctitle"><i class="ti ti-chart-bar" style="color:#3C3489"></i> Štruktúra príjmov podľa firmy</div>
+      <div style="position:relative;height:220px"><canvas id="chartStacked"></canvas></div>
+    </div>
+    <div class="g2">
+      <div class="card">
+        <div class="ctitle"><i class="ti ti-chart-line" style="color:#3B6D11"></i> Trend príjmov</div>
+        <div style="position:relative;height:200px"><canvas id="chartTrend"></canvas></div>
+      </div>
+      <div class="card">
+        <div class="ctitle"><i class="ti ti-chart-pie" style="color:#D85A30"></i> Podiel firiem</div>
+        <div style="position:relative;height:180px"><canvas id="chartPie"></canvas></div>
+        <div id="pieLabels" style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;font-size:11px"></div>
+      </div>
+    </div>
+    <div class="g2">
+      <div class="card">
+        <div class="ctitle"><i class="ti ti-trending-up" style="color:#3C3489"></i> Kvartálne porovnanie</div>
+        <div style="position:relative;height:200px"><canvas id="chartQtr"></canvas></div>
+      </div>
+      <div class="card">
+        <div class="ctitle"><i class="ti ti-tag" style="color:#854F0B"></i> Výdavky podľa kategórie</div>
+        <div id="evalExpCat"></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="ctitle"><i class="ti ti-users" style="color:#72243E"></i> Výplaty zamestnancom</div>
+      <div id="evalPersons"></div>
+    </div>
+  </div>
+
+  <!-- ZAMESTNANCI -->
+  <div id="tab-osoby" style="display:none">
+    <div class="card">
+      <div class="ctitle"><i class="ti ti-users"></i> Zamestnanci</div>
+      <div id="personChips" style="margin-bottom:14px"></div>
+      <div style="display:flex;gap:8px">
+        <input type="text" id="newPerson" placeholder="Meno zamestnanca" style="width:200px">
+        <button class="btn pri" onclick="addPerson()"><i class="ti ti-plus"></i> Pridať</button>
+      </div>
+    </div>
+    <div class="card">
+      <div class="ctitle"><i class="ti ti-cash"></i> Prehľad výplat</div>
+      <div id="personPayouts"></div>
+    </div>
+  </div>
+</div>
+
+<!-- GITHUB SETUP MODAL -->
+<div class="modal-bg" id="setupModal">
+  <div class="modal-box">
+    <div class="modal-hdr">
+      <div class="modal-title"><i class="ti ti-brand-github"></i> GitHub nastavenie</div>
+      <button class="modal-close" onclick="closeSetup()">×</button>
+    </div>
+    <div class="frow" style="flex-direction:column;align-items:flex-start;gap:5px;margin-bottom:12px">
+      <label style="font-size:12px;font-weight:600;color:#555">Token (ghp_...)</label>
+      <input type="password" id="setup_token" class="full" placeholder="ghp_...">
+    </div>
+    <div class="frow" style="flex-direction:column;align-items:flex-start;gap:5px;margin-bottom:16px">
+      <label style="font-size:12px;font-weight:600;color:#555">Repozitár</label>
+      <input type="text" id="setup_repo" class="full" value="ludiger/AZB">
+    </div>
+    <button class="btn pri full" onclick="saveSetup()"><i class="ti ti-check"></i> Uložiť a pripojiť</button>
+  </div>
+</div>
+
+<!-- EDIT MODAL -->
+<div class="modal-bg" id="editModal">
+  <div class="modal-box" onclick="event.stopPropagation()">
+    <div class="modal-hdr">
+      <div class="modal-title" id="editTitle">Upraviť záznam</div>
+      <button class="modal-close" onclick="closeEditModal()">×</button>
+    </div>
+
+    <!-- PRÍJEM polia -->
+    <div id="editInc">
+      <div class="frow"><span class="flbl">Firma</span>
+        <select id="e_firm" class="full" onchange="onEditFirmChange()">
+          <option value="stability">Stability</option>
+          <option value="creatride">Creatride</option>
+          <option value="autazababku">Autazababku</option>
+          <option value="cofidis">Cofidis</option>
+        </select>
+      </div>
+      <div class="frow"><span class="flbl">Suma (€)</span>
+        <input type="number" id="e_amount" step="0.01" class="full" oninput="onEditAmountChange()">
+      </div>
+      <!-- Split pre ST/CR/AU -->
+      <div id="e_splitBox" class="split-box" style="margin-bottom:10px">
+        <div class="split-title"><i class="ti ti-git-fork"></i> Rozdelenie</div>
+        <div class="frow" style="margin-bottom:6px">
+          <span class="flbl" style="color:#185FA5">Aktuálna fakturácia</span>
+          <input type="number" id="e_now" placeholder="0.00" step="0.01" style="width:110px" oninput="onEditSplitChange('now')">
+          <span style="font-size:11px;color:#888">€ → ihneď</span>
+        </div>
+        <div class="frow" style="margin-bottom:6px">
+          <span class="flbl" style="color:#3C3489">Do kvart. košíka</span>
+          <input type="number" id="e_qtr" placeholder="0.00" step="0.01" style="width:110px" oninput="onEditSplitChange('qtr')">
+          <span style="font-size:11px;color:#888">€ → vyplatí sa Q</span>
+        </div>
+        <div class="frow" style="margin-bottom:6px">
+          <span class="flbl" style="color:#639922">Klikačka</span>
+          <input type="number" id="e_klik" placeholder="0.00" step="0.01" style="width:110px" oninput="onEditSplitChange('klik')">
+          <span style="font-size:11px;color:#888">€ → koniec mesiaca</span>
+        </div>
+        <div class="split-check" id="e_splitCheck"></div>
+      </div>
+      <!-- Jednoduchý typ pre Cofidis -->
+      <div id="e_simpleType" style="display:none">
+        <div class="frow"><span class="flbl">Typ</span>
+          <select id="e_type" class="full">
+            <option value="mesacna">Mesačná provízia</option>
+            <option value="kvartalna">Kvartálna odmena</option>
+            <option value="klicacka">Klikačka</option>
+          </select>
+        </div>
+      </div>
+      <div class="frow"><span class="flbl">Poznámka</span>
+        <input type="text" id="e_desc" class="full">
+      </div>
+      <div class="frow"><span class="flbl">Stav</span>
+        <label style="display:flex;align-items:center;gap:8px;cursor:pointer;font-size:13px">
+          <input type="checkbox" id="e_paid" style="width:16px;height:16px;cursor:pointer"> Preplatené ✅
+        </label>
+      </div>
+    </div>
+
+    <!-- VÝDAVOK polia -->
+    <div id="editExp" style="display:none">
+      <div class="frow"><span class="flbl">Kategória</span>
+        <select id="e_cat" class="full">
+          <option value="vyplata">Výplata zamestnanca</option>
+          <option value="prevadzka">Prevádzka</option>
+          <option value="telefon">Telefón</option>
+          <option value="pohonne">Pohonné hmoty</option>
+          <option value="material">Materiál</option>
+          <option value="ine">Iné náklady</option>
+        </select>
+      </div>
+      <div class="frow"><span class="flbl">Zamestnanec</span>
+        <select id="e_person" class="full"><option value="">— žiadny —</option></select>
+      </div>
+      <div class="frow"><span class="flbl">Popis</span>
+        <input type="text" id="e_edesc" class="full">
+      </div>
+      <div class="frow"><span class="flbl">Firma</span>
+        <select id="e_outfirm" class="full">
+          <option value="">— neurčená —</option>
+          <option value="stability">Stability</option>
+          <option value="creatride">Creatride</option>
+          <option value="autazababku">Autazababku</option>
+          <option value="cofidis">Cofidis</option>
+        </select>
+      </div>
+      <div class="frow"><span class="flbl">Suma (€)</span>
+        <input type="number" id="e_expamt" step="0.01" class="full">
+      </div>
+    </div>
+
+    <div style="display:flex;gap:8px;margin-top:1rem">
+      <button class="btn pri" style="flex:1;justify-content:center" id="editSaveBtn">
+        <i class="ti ti-check"></i> Uložiť zmeny
+      </button>
+      <button class="btn" onclick="closeEditModal()">Zrušiť</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ===== KONŠTANTY =====
+const MONTHS=['Január','Február','Marec','Apríl','Máj','Jún','Júl','August','September','Október','November','December'];
+const MS=['Jan','Feb','Mar','Apr','Máj','Jún','Júl','Aug','Sep','Okt','Nov','Dec'];
+const QTRS=[{l:'Q1',m:[0,1,2]},{l:'Q2',m:[3,4,5]},{l:'Q3',m:[6,7,8]},{l:'Q4',m:[9,10,11]}];
+const FIRMS=[
+  {id:'stability',lbl:'Stability',badge:'ST',cls:'st',color:'#378ADD'},
+  {id:'creatride',lbl:'Creatride',badge:'CR',cls:'cr',color:'#1D9E75'},
+  {id:'autazababku',lbl:'Autazababku',badge:'AU',cls:'au',color:'#D85A30'},
+  {id:'cofidis',lbl:'Cofidis',badge:'CF',cls:'cf',color:'#D4537E'}
+];
+const SPLIT_FIRMS=['stability','creatride','autazababku'];
+const TYPE_LBL={mesacna:'Mesačná',kvartalna:'Kvartálna',klicacka:'Klikačka'};
+const TYPE_CLR={mesacna:{bg:'#E6F1FB',cl:'#185FA5'},kvartalna:{bg:'#EEEDFE',cl:'#3C3489'},klicacka:{bg:'#EAF3DE',cl:'#3B6D11'}};
+const CAT_LBL={vyplata:'Výplata',prevadzka:'Prevádzka',telefon:'Telefón',pohonne:'Pohonné hmoty',material:'Materiál',ine:'Iné'};
+
+// ===== STATE =====
+let state={persons:['Janka','Petka','Luboš','Dominika'],curMonth:new Date().getMonth(),months:{},qtrBasket:[],klikBasket:[]};
+let ghCfg={token:'',repo:'ludiger/AZB',file:'data.json'};
+let ghSha='';
+let saving=false;
+let charts={};
+
+// Aktuálny index editovaného záznamu
+let editMi=null, editEi=null;
+
+// ===== HELPERS =====
+function eur(v){return(parseFloat(v)||0).toLocaleString('sk-SK',{minimumFractionDigits:2,maximumFractionDigits:2})+' €';}
+function f2(v){return Math.round((parseFloat(v)||0)*100)/100;}
+function gm(i){if(!state.months[i])state.months[i]=[];return state.months[i];}
+function firmOf(id){return FIRMS.find(f=>f.id===id)||FIRMS[0];}
+function toast(msg,dur=2500){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),dur);}
+function setSync(msg,cls){const el=document.getElementById('syncStatus');el.textContent=msg;el.className='sync '+cls;}
+function qtrKey(mi){const q=QTRS.findIndex(q=>q.m.includes(mi));return q>=0?`Q${q+1}_2025`:'';}
+function qtrPayMonth(mi){const pm=[3,6,9,0];const q=QTRS.findIndex(q=>q.m.includes(mi));return q>=0?pm[q]:-1;}
+function isSplit(firm){return SPLIT_FIRMS.includes(firm);}
+
+// ===== GITHUB =====
+function loadCfg(){try{const d=localStorage.getItem('ghcfg2');if(d){const p=JSON.parse(d);ghCfg={...ghCfg,...p};}}catch(e){}}
+function saveCfg(){localStorage.setItem('ghcfg2',JSON.stringify(ghCfg));}
+
+function showSetup(){
+  document.getElementById('setup_token').value=ghCfg.token||'';
+  document.getElementById('setup_repo').value=ghCfg.repo;
+  document.getElementById('setupModal').classList.add('open');
+}
+function closeSetup(){document.getElementById('setupModal').classList.remove('open');}
+function saveSetup(){
+  ghCfg.token=document.getElementById('setup_token').value.trim();
+  ghCfg.repo=document.getElementById('setup_repo').value.trim();
+  saveCfg();closeSetup();syncFromGitHub();
+}
+
+async function syncFromGitHub(){
+  if(!ghCfg.token){setSync('Zadaj token','err');showSetup();return;}
+  setSync('Načítavam...','loading');
+  try{
+    const r=await fetch(`https://api.github.com/repos/${ghCfg.repo}/contents/${ghCfg.file}`,{
+      headers:{Authorization:`token ${ghCfg.token}`,Accept:'application/vnd.github.v3+json'}
+    });
+    if(r.status===404){setSync('Nový súbor','ok');return;}
+    if(!r.ok)throw new Error('HTTP '+r.status);
+    const j=await r.json();
+    ghSha=j.sha;
+    const d=JSON.parse(atob(j.content.replace(/\n/g,'')));
+    // Merge — zachovaj persons a curMonth
+    const persons=state.persons;
+    const curMonth=state.curMonth;
+    state={...state,...d,persons:d.persons||persons,curMonth};
+    if(!state.qtrBasket)state.qtrBasket=[];
+    if(!state.klikBasket)state.klikBasket=[];
+    setSync('Synchronizované','ok');
+    buildMonthTabs();renderEntries();updatePersonSel();
+    toast('Dáta načítané ✓');
+  }catch(e){setSync('Chyba: '+e.message,'err');}
+}
+
+async function pushToGitHub(){
+  if(!ghCfg.token)return;
+  if(saving){setTimeout(pushToGitHub,600);return;}
+  saving=true;setSync('Ukladám...','saving');
+  try{
+    const content=btoa(unescape(encodeURIComponent(JSON.stringify(state,null,2))));
+    const body={message:'Aktualizácia '+new Date().toLocaleString('sk-SK'),content};
+    if(ghSha)body.sha=ghSha;
+    const r=await fetch(`https://api.github.com/repos/${ghCfg.repo}/contents/${ghCfg.file}`,{
+      method:'PUT',
+      headers:{Authorization:`token ${ghCfg.token}`,Accept:'application/vnd.github.v3+json','Content-Type':'application/json'},
+      body:JSON.stringify(body)
+    });
+    if(!r.ok)throw new Error('HTTP '+r.status);
+    const j=await r.json();
+    ghSha=j.content.sha;
+    setSync('Uložené ✓','ok');
+    toast('Uložené na GitHub ✓');
+  }catch(e){setSync('Chyba ukladania','err');toast('Chyba: '+e.message);}
+  finally{saving=false;}
+}
+
+// ===== TABS =====
+function switchTab(n){
+  ['zadavanie','prehlad','kvartal','eval','osoby'].forEach(t=>{
+    document.getElementById('tab-'+t).style.display=t===n?'':'none';
+  });
+  document.querySelectorAll('.tab').forEach((b,i)=>{
+    b.classList.toggle('active',['zadavanie','prehlad','kvartal','eval','osoby'][i]===n);
+  });
+  if(n==='prehlad')renderPrehlad();
+  if(n==='kvartal')renderKvartal();
+  if(n==='eval')renderEval();
+  if(n==='osoby')renderOsoby();
+}
+
+// ===== MONTH TABS =====
+function buildMonthTabs(){
+  const c=document.getElementById('monthTabs');c.innerHTML='';
+  MONTHS.forEach((m,i)=>{
+    const b=document.createElement('button');
+    const has=(state.months[i]||[]).length>0;
+    b.className='mbtn'+(i===state.curMonth?' active':'')+(has?' has':'');
+    b.textContent=m;
+    b.title=has?'Má záznamy':'';
+    b.onclick=()=>{state.curMonth=i;buildMonthTabs();renderEntries();};
+    c.appendChild(b);
+  });
+}
+
+// ===== SPLIT LOGIKA (nové záznamy) =====
+function onFirmChange(){
+  const firm=document.getElementById('in_firm').value;
+  const split=isSplit(firm);
+  document.getElementById('splitSection').style.display=split?'':'none';
+  document.getElementById('simpleType').style.display=split?'none':'';
+  ['in_now','in_qtr','in_klik'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('splitCheck').innerHTML='';
+  document.getElementById('in_amount').value='';
+}
+function onAmountChange(){
+  if(!isSplit(document.getElementById('in_firm').value))return;
+  ['in_now','in_qtr','in_klik'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('splitCheck').innerHTML='';
+}
+function onSplitChange(which){
+  const total=parseFloat(document.getElementById('in_amount').value)||0;
+  if(!total)return;
+  const n=parseFloat(document.getElementById('in_now').value)||0;
+  const q=parseFloat(document.getElementById('in_qtr').value)||0;
+  const k=parseFloat(document.getElementById('in_klik').value)||0;
+  if(which==='now'){const r=f2(total-n-k);document.getElementById('in_qtr').value=r>0?r:'';}
+  else if(which==='qtr'){const r=f2(total-q-k);document.getElementById('in_now').value=r>0?r:'';}
+  else if(which==='klik'){const r=f2(total-k-q);document.getElementById('in_now').value=r>0?r:'';}
+  const n2=parseFloat(document.getElementById('in_now').value)||0;
+  const q2=parseFloat(document.getElementById('in_qtr').value)||0;
+  const k2=parseFloat(document.getElementById('in_klik').value)||0;
+  const diff=f2(total-n2-q2-k2);
+  const sc=document.getElementById('splitCheck');
+  sc.innerHTML=Math.abs(diff)<0.01
+    ?'<span style="color:#3B6D11;font-weight:600">✓ Súčet sedí ('+eur(total)+')</span>'
+    :'<span style="color:#A32D2D;font-weight:600">⚠ Rozdiel: '+eur(Math.abs(diff))+(diff>0?' chýba':' navyše')+'</span>';
+}
+
+// ===== PRIDAŤ PRÍJEM =====
+function addIncome(){
+  const firm=document.getElementById('in_firm').value;
+  const total=parseFloat(document.getElementById('in_amount').value);
+  const desc=document.getElementById('in_desc').value.trim();
+  if(!total||total<=0){toast('Zadaj sumu');return;}
+
+  if(isSplit(firm)){
+    const n=parseFloat(document.getElementById('in_now').value)||0;
+    const q=parseFloat(document.getElementById('in_qtr').value)||0;
+    const k=parseFloat(document.getElementById('in_klik').value)||0;
+    const used=f2(n+q+k);
+    if(used>0.01&&Math.abs(total-used)>0.01){toast('Súčet rozdelenia nesedí!');return;}
+    if(used<0.01){
+      // Bez rozdelenia — ulož ako mesačná
+      gm(state.curMonth).push({kind:'income',firm,type:'mesacna',amount:total,desc,paid:false});
+    } else {
+      if(n>0)gm(state.curMonth).push({kind:'income',firm,type:'mesacna',amount:n,desc,paid:false});
+      if(q>0){state.qtrBasket.push({firm,type:'kvartalna',amount:q,desc,fromMonth:state.curMonth,qtrKey:qtrKey(state.curMonth),payoutMonth:qtrPayMonth(state.curMonth),paid:false,addedAt:new Date().toISOString()});}
+      if(k>0){state.klikBasket.push({firm,type:'klicacka',amount:k,desc,fromMonth:state.curMonth,paid:false,addedAt:new Date().toISOString()});}
+    }
+    // Reset
+    document.getElementById('in_amount').value='';
+    document.getElementById('in_now').value='';
+    document.getElementById('in_qtr').value='';
+    document.getElementById('in_klik').value='';
+    document.getElementById('splitCheck').innerHTML='';
+  } else {
+    const type=document.getElementById('in_type').value;
+    gm(state.curMonth).push({kind:'income',firm,type,amount:total,desc,paid:false});
+    document.getElementById('in_amount').value='';
+  }
+  document.getElementById('in_desc').value='';
+  renderEntries();buildMonthTabs();pushToGitHub();
+}
+
+// ===== PRIDAŤ VÝDAVOK =====
+function addExpense(){
+  const amount=parseFloat(document.getElementById('out_amount').value);
+  if(!amount||amount<=0){toast('Zadaj sumu');return;}
+  const person=document.getElementById('out_person').value;
+  const desc=document.getElementById('out_desc').value.trim()||person;
+  gm(state.curMonth).push({
+    kind:'expense',
+    cat:document.getElementById('out_cat').value,
+    person,desc,
+    firm:document.getElementById('out_firm').value,
+    amount
+  });
+  document.getElementById('out_amount').value='';
+  document.getElementById('out_desc').value='';
+  document.getElementById('out_person').value='';
+  renderEntries();buildMonthTabs();pushToGitHub();
+}
+
+// ===== RENDER ZÁZNAMY =====
+function renderEntries(){
+  document.getElementById('listTitle').textContent='Záznamy — '+MONTHS[state.curMonth];
+  const entries=gm(state.curMonth);
+  const el=document.getElementById('entryList');
+  if(!entries.length){el.innerHTML='<p class="empty">Žiadne záznamy. Pridaj príjem alebo výdavok.</p>';document.getElementById('monthBal').textContent='';return;}
+
+  const incs=entries.filter(e=>e.kind==='income');
+  const exps=entries.filter(e=>e.kind==='expense');
+  const totIn=incs.reduce((a,e)=>a+e.amount,0);
+  const totOut=exps.reduce((a,e)=>a+e.amount,0);
+  const paidIn=incs.filter(e=>e.paid).reduce((a,e)=>a+e.amount,0);
+  const bal=totIn-totOut;
+  document.getElementById('monthBal').innerHTML=
+    `<span style="color:#3B6D11">↑ ${eur(totIn)}</span> &nbsp;`+
+    `<span style="color:#A32D2D">↓ ${eur(totOut)}</span> &nbsp;`+
+    `<span style="color:${bal>=0?'#3B6D11':'#A32D2D'};font-size:15px">= ${eur(bal)}</span>`+
+    (totIn>0?` &nbsp;<span style="font-size:11px;color:#888">| ✅ ${eur(paidIn)} · ⏳ ${eur(totIn-paidIn)}</span>`:'');
+
+  let html='';
+  if(incs.length){
+    const pc=incs.filter(e=>e.paid).length;
+    html+=`<div class="ssep" style="color:#3B6D11"><i class="ti ti-arrow-down-circle"></i> Príjmy (${incs.length}) <span style="font-weight:400;font-size:10px;color:#aaa">${pc}/${incs.length} preplatených</span></div>`;
+    incs.forEach((e,idx)=>{
+      const i=entries.indexOf(e);
+      const f=firmOf(e.firm);
+      const paid=!!e.paid;
+      const tc=TYPE_CLR[e.type]||{bg:'#f0f0ee',cl:'#666'};
+      html+=`<div class="entry inc${paid?' done':''}">
+        <span class="enum">#${idx+1}</span>
+        <button onclick="togglePaid(${state.curMonth},${i})" style="border:none;background:none;cursor:pointer;font-size:18px;padding:0;flex-shrink:0">${paid?'✅':'⬜'}</button>
+        <span class="bdg ${f.cls}">${f.badge}</span>
+        <span class="bdg" style="background:${tc.bg};color:${tc.cl};font-size:10px">${TYPE_LBL[e.type]||e.type}</span>
+        <span class="edesc" style="${paid?'text-decoration:line-through;color:#ccc':''}">${e.desc||''}</span>
+        <span class="eamt pos${paid?' done':''}">${eur(e.amount)}</span>
+        <span style="font-size:10px;color:${paid?'#3B6D11':'#ccc'};white-space:nowrap">${paid?'✓ ok':'čaká'}</span>
+        <button class="btn sm" style="color:#185FA5;border-color:#c0d8f0;flex-shrink:0" onclick="openEdit(${state.curMonth},${i})"><i class="ti ti-pencil"></i></button>
+        <button class="btn sm red" style="flex-shrink:0" onclick="removeEntry(${state.curMonth},${i})"><i class="ti ti-trash"></i></button>
+      </div>`;
+    });
+  }
+  if(exps.length){
+    html+=`<div class="ssep" style="color:#A32D2D;margin-top:10px"><i class="ti ti-arrow-up-circle"></i> Výdavky (${exps.length})</div>`;
+    exps.forEach((e,idx)=>{
+      const i=entries.indexOf(e);
+      const f=e.firm?firmOf(e.firm):null;
+      html+=`<div class="entry exp">
+        <span class="enum">#${idx+1}</span>
+        <span class="bdg out">${CAT_LBL[e.cat]||e.cat}</span>
+        ${f?`<span class="bdg ${f.cls}">${f.badge}</span>`:''}
+        <span class="edesc">${e.desc||''}</span>
+        <span class="eamt neg">-${eur(e.amount)}</span>
+        <button class="btn sm" style="color:#185FA5;border-color:#c0d8f0;flex-shrink:0" onclick="openEdit(${state.curMonth},${i})"><i class="ti ti-pencil"></i></button>
+        <button class="btn sm red" style="flex-shrink:0" onclick="removeEntry(${state.curMonth},${i})"><i class="ti ti-trash"></i></button>
+      </div>`;
+    });
+  }
+  el.innerHTML=html;
+}
+
+function togglePaid(mi,ei){
+  const e=gm(mi)[ei];if(!e)return;
+  e.paid=!e.paid;
+  renderEntries();pushToGitHub();
+}
+function removeEntry(mi,ei){
+  if(!confirm('Odstrániť tento záznam?'))return;
+  state.months[mi].splice(ei,1);
+  renderEntries();buildMonthTabs();pushToGitHub();
+}
+
+// ===== EDIT MODAL =====
+function openEdit(mi,ei){
+  const entries=state.months[mi];
+  if(!entries||ei>=entries.length)return;
+  const e=entries[ei];
+  editMi=mi;editEi=ei;
+
+  const isInc=e.kind==='income';
+  document.getElementById('editTitle').textContent=isInc?'Upraviť príjem':'Upraviť výdavok';
+  document.getElementById('editInc').style.display=isInc?'':'none';
+  document.getElementById('editExp').style.display=isInc?'none':'';
+
+  if(isInc){
+    const firm=e.firm||'stability';
+    document.getElementById('e_firm').value=firm;
+    document.getElementById('e_amount').value=e.amount||'';
+    document.getElementById('e_desc').value=e.desc||'';
+    document.getElementById('e_paid').checked=!!e.paid;
+    updateEditSplit(firm,e);
+  } else {
+    document.getElementById('e_cat').value=e.cat||'vyplata';
+    document.getElementById('e_edesc').value=e.desc||'';
+    document.getElementById('e_outfirm').value=e.firm||'';
+    document.getElementById('e_expamt').value=e.amount||'';
+    const ps=document.getElementById('e_person');
+    ps.innerHTML='<option value="">— žiadny —</option>';
+    state.persons.forEach(p=>{const o=document.createElement('option');o.value=p;o.textContent=p;if(p===e.person)o.selected=true;ps.appendChild(o);});
+  }
+
+  // Priradíme handler na save button
+  const btn=document.getElementById('editSaveBtn');
+  btn.onclick=doSaveEdit;
+
+  document.getElementById('editModal').classList.add('open');
+}
+
+function updateEditSplit(firm,e){
+  const split=isSplit(firm);
+  document.getElementById('e_splitBox').style.display=split?'':'none';
+  document.getElementById('e_simpleType').style.display=split?'none':'';
+  if(split){
+    document.getElementById('e_now').value=e&&e.type==='mesacna'?e.amount:'';
+    document.getElementById('e_qtr').value=e&&e.type==='kvartalna'?e.amount:'';
+    document.getElementById('e_klik').value=e&&e.type==='klicacka'?e.amount:'';
+    const amt=e?e.amount:0;
+    document.getElementById('e_splitCheck').innerHTML=amt?'<span style="color:#3B6D11;font-weight:600">✓ Súčet sedí ('+eur(amt)+')</span>':'';
+  } else {
+    if(e)document.getElementById('e_type').value=e.type||'mesacna';
+  }
+}
+
+function onEditFirmChange(){
+  const firm=document.getElementById('e_firm').value;
+  updateEditSplit(firm,null);
+  document.getElementById('e_splitCheck').innerHTML='';
+}
+function onEditAmountChange(){
+  if(isSplit(document.getElementById('e_firm').value)){
+    ['e_now','e_qtr','e_klik'].forEach(id=>document.getElementById(id).value='');
+    document.getElementById('e_splitCheck').innerHTML='';
+  }
+}
+function onEditSplitChange(which){
+  const total=parseFloat(document.getElementById('e_amount').value)||0;
+  if(!total)return;
+  const n=parseFloat(document.getElementById('e_now').value)||0;
+  const q=parseFloat(document.getElementById('e_qtr').value)||0;
+  const k=parseFloat(document.getElementById('e_klik').value)||0;
+  if(which==='now'){const r=f2(total-n-k);document.getElementById('e_qtr').value=r>0?r:'';}
+  else if(which==='qtr'){const r=f2(total-q-k);document.getElementById('e_now').value=r>0?r:'';}
+  else if(which==='klik'){const r=f2(total-k-q);document.getElementById('e_now').value=r>0?r:'';}
+  const n2=parseFloat(document.getElementById('e_now').value)||0;
+  const q2=parseFloat(document.getElementById('e_qtr').value)||0;
+  const k2=parseFloat(document.getElementById('e_klik').value)||0;
+  const diff=f2(total-n2-q2-k2);
+  const sc=document.getElementById('e_splitCheck');
+  sc.innerHTML=Math.abs(diff)<0.01
+    ?'<span style="color:#3B6D11;font-weight:600">✓ Súčet sedí ('+eur(total)+')</span>'
+    :'<span style="color:#A32D2D;font-weight:600">⚠ Rozdiel: '+eur(Math.abs(diff))+'</span>';
+}
+
+function doSaveEdit(){
+  // Načítaj mi/ei pred akoukoľvek operáciou
+  const mi=editMi;
+  const ei=editEi;
+  if(mi===null||ei===null){toast('Chyba: nenájdený záznam');return;}
+  if(!state.months[mi]||!state.months[mi][ei]){toast('Chyba: záznam neexistuje');return;}
+
+  const e=state.months[mi][ei];
+
+  if(e.kind==='income'){
+    const total=parseFloat(document.getElementById('e_amount').value);
+    if(!total||total<=0){toast('Zadaj platnú sumu');return;}
+    const firm=document.getElementById('e_firm').value;
+    const desc=document.getElementById('e_desc').value.trim();
+    const paid=document.getElementById('e_paid').checked;
+
+    e.firm=firm;
+    e.desc=desc;
+    e.paid=paid;
+
+    if(isSplit(firm)){
+      const n=parseFloat(document.getElementById('e_now').value)||0;
+      const q=parseFloat(document.getElementById('e_qtr').value)||0;
+      const k=parseFloat(document.getElementById('e_klik').value)||0;
+      const used=f2(n+q+k);
+
+      if(used>0.01&&Math.abs(total-used)>0.01){
+        toast('Súčet rozdelenia ('+eur(used)+') nesedí so sumou ('+eur(total)+')!');return;
+      }
+
+      if(used<0.01){
+        // Len zmeň sumu
+        e.amount=total;
+      } else {
+        // Aktualizuj aktuálny záznam
+        if(e.type==='mesacna')e.amount=n>0?n:total;
+        else if(e.type==='kvartalna')e.amount=q>0?q:total;
+        else if(e.type==='klicacka')e.amount=k>0?k:total;
+
+        // Pridaj nové košíkové položky
+        if(e.type!=='kvartalna'&&q>0){state.qtrBasket.push({firm,type:'kvartalna',amount:q,desc,fromMonth:mi,qtrKey:qtrKey(mi),payoutMonth:qtrPayMonth(mi),paid:false,addedAt:new Date().toISOString()});}
+        if(e.type!=='klicacka'&&k>0){state.klikBasket.push({firm,type:'klicacka',amount:k,desc,fromMonth:mi,paid:false,addedAt:new Date().toISOString()});}
+        if(e.type!=='mesacna'&&n>0){gm(mi).push({kind:'income',firm,type:'mesacna',amount:n,desc,paid:false});}
+      }
+    } else {
+      e.type=document.getElementById('e_type').value;
+      e.amount=total;
+    }
+  } else {
+    const amount=parseFloat(document.getElementById('e_expamt').value);
+    if(!amount||amount<=0){toast('Zadaj platnú sumu');return;}
+    e.cat=document.getElementById('e_cat').value;
+    e.person=document.getElementById('e_person').value;
+    e.desc=document.getElementById('e_edesc').value.trim()||e.person||'';
+    e.firm=document.getElementById('e_outfirm').value;
+    e.amount=amount;
+  }
+
+  // Zatvoriť modal a uložiť
+  document.getElementById('editModal').classList.remove('open');
+  editMi=null;editEi=null;
+  renderEntries();buildMonthTabs();
+  pushToGitHub();
+  toast('Záznam upravený ✓');
+}
+
+function closeEditModal(){
+  document.getElementById('editModal').classList.remove('open');
+  editMi=null;editEi=null;
+}
+
+// Zavrieť modal kliknutím na pozadie
+document.getElementById('editModal').addEventListener('click',function(ev){
+  if(ev.target===this)closeEditModal();
+});
+document.getElementById('setupModal').addEventListener('click',function(ev){
+  if(ev.target===this)closeSetup();
+});
+
+// ===== PREHĽAD =====
+function renderPrehlad(){
+  let tI=0,tO=0,tP=0;
+  const rows=MONTHS.map((mn,i)=>{
+    const entries=gm(i);
+    const incs=entries.filter(e=>e.kind==='income');
+    const inc=incs.reduce((a,e)=>a+e.amount,0);
+    const exp=entries.filter(e=>e.kind==='expense').reduce((a,e)=>a+e.amount,0);
+    const paid=incs.filter(e=>e.paid).reduce((a,e)=>a+e.amount,0);
+    const bal=inc-exp;tI+=inc;tO+=exp;tP+=paid;
+    return`<tr><td style="font-weight:600">${mn}</td>
+      <td style="color:#3B6D11;font-weight:500">${inc?eur(inc):'—'}</td>
+      <td style="color:#A32D2D;font-weight:500">${exp?eur(exp):'—'}</td>
+      <td style="font-weight:700;color:${bal>=0?'#3B6D11':'#A32D2D'}">${entries.length?eur(bal):'—'}</td>
+      <td style="color:#3B6D11">${paid?eur(paid):'—'}</td>
+      <td style="color:#854F0B">${(inc-paid)?eur(inc-paid):'—'}</td>
+      <td style="color:#aaa">${entries.length||'—'}</td></tr>`;
+  }).join('');
+  const g=tI-tO;
+  document.getElementById('prehladBody').innerHTML=rows;
+  document.getElementById('prehladFoot').innerHTML=`<tr><td>Spolu</td><td style="color:#3B6D11">${eur(tI)}</td><td style="color:#A32D2D">${eur(tO)}</td><td style="color:${g>=0?'#3B6D11':'#A32D2D'}">${eur(g)}</td><td style="color:#3B6D11">${eur(tP)}</td><td style="color:#854F0B">${eur(tI-tP)}</td><td></td></tr>`;
+  document.getElementById('prehladCards').innerHTML=`
+    <div class="metric"><div class="mlbl">Príjmy</div><div class="mval gr">${eur(tI)}</div></div>
+    <div class="metric"><div class="mlbl">Výdavky</div><div class="mval re">${eur(tO)}</div></div>
+    <div class="metric"><div class="mlbl">Zostatok</div><div class="mval ${g>=0?'gr':'re'}">${eur(g)}</div></div>
+    <div class="metric"><div class="mlbl">✅ Preplatené</div><div class="mval gr">${eur(tP)}</div></div>
+    <div class="metric"><div class="mlbl">⏳ Čaká</div><div class="mval am">${eur(tI-tP)}</div></div>`;
+  destroyChart('chartPrehlad');
+  charts['chartPrehlad']=new Chart(document.getElementById('chartPrehlad'),{type:'bar',
+    data:{labels:MS,datasets:[
+      {label:'Príjmy',data:MONTHS.map((_,i)=>f2(gm(i).filter(e=>e.kind==='income').reduce((a,e)=>a+e.amount,0))),backgroundColor:'#3B6D11',borderWidth:0},
+      {label:'Výdavky',data:MONTHS.map((_,i)=>f2(gm(i).filter(e=>e.kind==='expense').reduce((a,e)=>a+e.amount,0))),backgroundColor:'#E24B4A',borderWidth:0}
+    ]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{ticks:{autoSkip:false,maxRotation:0,font:{size:10}}},y:{ticks:{callback:v=>v+'€',font:{size:10}}}}}
+  });
+}
+
+// ===== KVARTÁLY =====
+function toggleBasketPaid(idx){
+  if(!state.qtrBasket[idx])return;
+  state.qtrBasket[idx].paid=!state.qtrBasket[idx].paid;
+  pushToGitHub();renderKvartal();
+}
+function toggleKlikPaid(idx){
+  if(!state.klikBasket[idx])return;
+  state.klikBasket[idx].paid=!state.klikBasket[idx].paid;
+  pushToGitHub();renderKvartal();
+}
+function renderKvartal(){
+  const qsc=document.getElementById('qCards');qsc.innerHTML='';
+  const qd=document.getElementById('qDetail');qd.innerHTML='';
+  QTRS.forEach((q,qi)=>{
+    let tI=0,tO=0;
+    const fIn={};FIRMS.forEach(f=>fIn[f.id]=0);
+    q.m.forEach(i=>{gm(i).forEach(e=>{
+      if(e.kind==='income'){tI+=e.amount;if(fIn[e.firm]!==undefined)fIn[e.firm]+=e.amount;}
+      else tO+=e.amount;
+    });});
+    const bItems=(state.qtrBasket||[]).map((b,i)=>({...b,_i:i})).filter(b=>b.qtrKey===`Q${qi+1}_2025`);
+    const bTot=bItems.reduce((a,b)=>a+b.amount,0);
+    const bPaid=bItems.filter(b=>b.paid).reduce((a,b)=>a+b.amount,0);
+    const bal=tI-tO;
+    const div=document.createElement('div');div.className='metric';
+    div.innerHTML=`<div class="mlbl">${q.l} <span class="bdg" style="background:#EEEDFE;color:#3C3489;font-size:9px">kvartal</span></div>
+      <div class="mval ${bal>=0?'gr':'re'}">${eur(bal)}</div>
+      <div class="msub">↑ ${eur(tI)} · ↓ ${eur(tO)}</div>
+      ${bTot?`<div class="msub" style="color:#3C3489">🧺 ${eur(bTot)}</div>`:''}`;
+    qsc.appendChild(div);
+    const det=document.createElement('div');det.className='card';
+    let html=`<div class="ctitle">${q.l}: ${q.m.map(i=>MONTHS[i]).join(', ')}</div>`;
+    FIRMS.forEach(f=>{if(fIn[f.id])html+=`<div class="srow"><span><span class="bdg ${f.cls}">${f.badge}</span> ${f.lbl}</span><span class="sv" style="color:#3B6D11">${eur(fIn[f.id])}</span></div>`;});
+    html+=`<div class="srow" style="background:#f5f5f3;padding:5px 8px;border-radius:8px;margin:6px 0"><span style="font-weight:700">Príjmy spolu</span><span class="sv gr">${eur(tI)}</span></div>`;
+    html+=`<div class="srow"><span>Výdavky</span><span class="sv re">${eur(tO)}</span></div>`;
+    html+=`<div class="srow" style="border-top:2px solid #e0e0dc;margin-top:4px;padding-top:8px"><span style="font-weight:700">Zostatok</span><span class="sv" style="color:${bal>=0?'#3B6D11':'#A32D2D'}">${eur(bal)}</span></div>`;
+    // Košík
+    html+=`<div class="ssep" style="margin-top:14px;color:#3C3489"><i class="ti ti-basket"></i> Kvartálny košík ${q.l} <span style="font-weight:400;font-size:10px;color:#aaa">vyplatí sa ${['apríli','júli','októbri','januári'][qi]}</span></div>`;
+    if(!bItems.length){html+=`<p style="font-size:12px;color:#bbb;padding:6px 0;font-style:italic">Žiadne položky</p>`;}
+    else{
+      bItems.forEach(b=>{
+        const f=firmOf(b.firm);
+        html+=`<div style="display:flex;align-items:center;gap:6px;padding:6px 8px;border-radius:8px;margin-bottom:3px;border:1px solid ${b.paid?'#97C459':'#c0d8f0'};background:${b.paid?'#f8fff4':'#f0f7ff'};flex-wrap:wrap">
+          <button onclick="toggleBasketPaid(${b._i})" style="border:none;background:none;cursor:pointer;font-size:17px;padding:0">${b.paid?'✅':'⬜'}</button>
+          <span class="bdg ${f.cls}">${f.badge}</span>
+          <span style="font-size:12px;color:#555;flex:1">${b.desc||''} <span style="color:#bbb">(${MONTHS[b.fromMonth]})</span></span>
+          <span style="font-weight:700;color:${b.paid?'#3B6D11':'#3C3489'}">${eur(b.amount)}</span>
+          <span style="font-size:10px;color:${b.paid?'#3B6D11':'#854F0B'}">${b.paid?'✓ vyplatené':'čaká'}</span>
+        </div>`;
+      });
+      html+=`<div style="display:flex;justify-content:space-between;padding:7px 8px;background:#EEEDFE;border-radius:8px;margin-top:6px;font-size:12px;font-weight:700">
+        <span style="color:#3C3489">Spolu</span>
+        <span><span style="color:#3B6D11">✅ ${eur(bPaid)}</span> &nbsp; <span style="color:#854F0B">⏳ ${eur(bTot-bPaid)}</span></span>
+      </div>`;
+    }
+    det.innerHTML=html;qd.appendChild(det);
+  });
+  // Klikačky
+  const kb=state.klikBasket||[];
+  const kCard=document.getElementById('klikCard');
+  const kList=document.getElementById('klikList');
+  if(!kb.length){kCard.style.display='none';return;}
+  kCard.style.display='';
+  const byM={};
+  kb.forEach((b,i)=>{if(!byM[b.fromMonth])byM[b.fromMonth]=[];byM[b.fromMonth].push({...b,_i:i});});
+  let kHtml='';
+  Object.keys(byM).sort((a,b)=>a-b).forEach(mi=>{
+    const items=byM[mi];
+    const tot=items.reduce((a,b)=>a+b.amount,0);
+    const paid=items.filter(b=>b.paid).reduce((a,b)=>a+b.amount,0);
+    kHtml+=`<div class="ssep" style="color:#639922"><i class="ti ti-calendar"></i> ${MONTHS[mi]} <span style="font-weight:400;font-size:10px;color:#aaa">spolu ${eur(tot)}</span></div>`;
+    items.forEach(b=>{
+      const f=firmOf(b.firm);
+      kHtml+=`<div style="display:flex;align-items:center;gap:6px;padding:6px 8px;border-radius:8px;margin-bottom:3px;border:1px solid ${b.paid?'#97C459':'#c8e6c9'};background:${b.paid?'#f8fff4':'#f9fff9'};flex-wrap:wrap">
+        <button onclick="toggleKlikPaid(${b._i})" style="border:none;background:none;cursor:pointer;font-size:17px;padding:0">${b.paid?'✅':'⬜'}</button>
+        <span class="bdg ${f.cls}">${f.badge}</span>
+        <span class="bdg" style="background:#EAF3DE;color:#3B6D11;font-size:10px">Klikačka</span>
+        <span style="font-size:12px;color:#555;flex:1">${b.desc||''}</span>
+        <span style="font-weight:700;color:${b.paid?'#3B6D11':'#639922'}">${eur(b.amount)}</span>
+        <span style="font-size:10px;color:${b.paid?'#3B6D11':'#854F0B'}">${b.paid?'✓':'čaká'}</span>
+      </div>`;
+    });
+    kHtml+=`<div style="display:flex;justify-content:flex-end;gap:12px;font-size:12px;padding:4px 8px;margin-bottom:6px"><span style="color:#3B6D11">✅ ${eur(paid)}</span><span style="color:#854F0B">⏳ ${eur(tot-paid)}</span></div>`;
+  });
+  const gTot=kb.reduce((a,b)=>a+b.amount,0);
+  const gPaid=kb.filter(b=>b.paid).reduce((a,b)=>a+b.amount,0);
+  kHtml+=`<div style="display:flex;justify-content:space-between;padding:8px;background:#EAF3DE;border-radius:8px;font-size:13px;font-weight:700">
+    <span style="color:#3B6D11">Klikačky celkom</span>
+    <span><span style="color:#3B6D11">✅ ${eur(gPaid)}</span> &nbsp; <span style="color:#854F0B">⏳ ${eur(gTot-gPaid)}</span> &nbsp; ${eur(gTot)}</span>
+  </div>`;
+  kList.innerHTML=kHtml;
+}
+
+// ===== VYHODNOTENIE =====
+function destroyChart(id){if(charts[id]){charts[id].destroy();delete charts[id];}}
+function renderEval(){
+  let tI=0,tO=0,tPaid=0;
+  const fIn={};FIRMS.forEach(f=>fIn[f.id]={total:0,mesacna:0,kvartalna:0,klicacka:0,paid:0});
+  const catO={};
+  const byP={};state.persons.forEach(p=>byP[p]=0);
+  const mI=[],mO=[];
+  MONTHS.forEach((_,i)=>{
+    let mi=0,mo=0;
+    gm(i).forEach(e=>{
+      if(e.kind==='income'){tI+=e.amount;mi+=e.amount;if(e.paid){tPaid+=e.amount;fIn[e.firm].paid+=e.amount;}
+        if(fIn[e.firm]){fIn[e.firm].total+=e.amount;if(fIn[e.firm][e.type]!==undefined)fIn[e.firm][e.type]+=e.amount;}}
+      else{tO+=e.amount;mo+=e.amount;if(!catO[e.cat])catO[e.cat]=0;catO[e.cat]+=e.amount;
+        if(e.cat==='vyplata'&&e.person){if(!byP[e.person])byP[e.person]=0;byP[e.person]+=e.amount;}}
+    });
+    mI.push(mi);mO.push(mo);
+  });
+  const g=tI-tO;
+  const kb=state.klikBasket||[];const qb=state.qtrBasket||[];
+  const kTot=kb.reduce((a,b)=>a+b.amount,0);const kPaid=kb.filter(b=>b.paid).reduce((a,b)=>a+b.amount,0);
+  const qTot=qb.reduce((a,b)=>a+b.amount,0);const qPaid=qb.filter(b=>b.paid).reduce((a,b)=>a+b.amount,0);
+  const actM=mI.map((v,i)=>({v,i})).filter(x=>x.v>0);
+  const bestMi=actM.length?actM.reduce((a,b)=>b.v>a.v?b:a).i:0;
+  const bestF=FIRMS.reduce((a,f)=>fIn[f.id].total>fIn[a.id].total?f:a,FIRMS[0]);
+  document.getElementById('evalCards').innerHTML=`
+    <div class="metric"><div class="mlbl">Príjmy</div><div class="mval gr">${eur(tI)}</div></div>
+    <div class="metric"><div class="mlbl">Výdavky</div><div class="mval re">${eur(tO)}</div></div>
+    <div class="metric"><div class="mlbl">Zostatok</div><div class="mval ${g>=0?'gr':'re'}">${eur(g)}</div></div>
+    <div class="metric"><div class="mlbl">✅ Preplatené</div><div class="mval gr">${eur(tPaid)}</div><div class="msub">${tI?((tPaid/tI)*100).toFixed(0)+'%':''}</div></div>
+    <div class="metric"><div class="mlbl">⏳ Čaká</div><div class="mval am">${eur(tI-tPaid)}</div></div>
+    <div class="metric"><div class="mlbl">🧺 Kvart. košík</div><div class="mval pu">${eur(qTot)}</div><div class="msub">✅ ${eur(qPaid)}</div></div>
+    <div class="metric"><div class="mlbl">🖱 Klikačky</div><div class="mval" style="color:#639922">${eur(kTot)}</div><div class="msub">✅ ${eur(kPaid)}</div></div>
+    <div class="metric"><div class="mlbl">Najlepšia firma</div><div class="mval bl" style="font-size:14px">${bestF.lbl}</div><div class="msub">${eur(fIn[bestF.id].total)}</div></div>
+    <div class="metric"><div class="mlbl">Najlepší mesiac</div><div class="mval pu" style="font-size:14px">${MONTHS[bestMi]}</div><div class="msub">${eur(mI[bestMi])}</div></div>`;
+
+  // Firmy breakdown
+  const maxF=Math.max(...FIRMS.map(f=>fIn[f.id].total),1);
+  const TYPS=[{k:'mesacna',l:'Mesačná',c:'#378ADD'},{k:'kvartalna',l:'Kvartálna',c:'#3C3489'},{k:'klicacka',l:'Klikačka',c:'#639922'}];
+  let fHtml='';
+  FIRMS.forEach(f=>{
+    const fd=fIn[f.id];
+    if(!fd.total){fHtml+=`<div style="padding:8px 0;border-bottom:1px solid #f0f0ee;color:#bbb;font-size:13px"><span class="bdg ${f.cls}">${f.badge}</span> ${f.lbl} — žiadne záznamy</div>`;return;}
+    fHtml+=`<div style="margin-bottom:14px;padding-bottom:14px;border-bottom:1px solid #f0f0ee">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+        <span style="font-weight:700;display:flex;align-items:center;gap:6px"><span class="bdg ${f.cls}">${f.badge}</span>${f.lbl}</span>
+        <span style="display:flex;gap:10px;font-size:12px"><span style="color:#3B6D11">✅ ${eur(fd.paid)}</span><span style="color:#854F0B">⏳ ${eur(fd.total-fd.paid)}</span><span style="font-weight:700;color:${f.color}">${eur(fd.total)}</span></span>
+      </div>
+      <div class="bar-row"><span class="bar-lbl" style="font-size:11px;color:#aaa">Podiel celku</span><div class="bar-track"><div class="bar-fill" style="width:${(fd.total/maxF*100).toFixed(1)}%;background:${f.color}"></div></div><span class="bar-val" style="color:${f.color};font-size:11px">${tI?(fd.total/tI*100).toFixed(1)+'%':''}</span></div>`;
+    TYPS.forEach(t=>{if(fd[t.k])fHtml+=`<div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;padding-left:10px">
+      <span style="font-size:11px;color:#666;min-width:120px">${t.l}</span>
+      <div style="flex:1;height:5px;background:#f0f0ee;border-radius:3px"><div style="height:100%;width:${(fd[t.k]/fd.total*100).toFixed(1)}%;background:${t.c};border-radius:3px"></div></div>
+      <span style="font-size:12px;font-weight:600;color:${t.c};min-width:75px;text-align:right">${eur(fd[t.k])}</span>
+    </div>`;});
+    fHtml+='</div>';
+  });
+  document.getElementById('evalFirms').innerHTML=fHtml||'<p class="empty">Žiadne príjmy</p>';
+
+  // Stacked chart
+  destroyChart('chartStacked');
+  charts['chartStacked']=new Chart(document.getElementById('chartStacked'),{type:'bar',
+    data:{labels:FIRMS.map(f=>f.lbl),datasets:TYPS.map(t=>({label:t.l,data:FIRMS.map(f=>f2(fIn[f.id][t.k])),backgroundColor:t.c,borderWidth:0}))},
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{stacked:true,ticks:{font:{size:11}}},y:{stacked:true,ticks:{callback:v=>v+'€',font:{size:10}}}}}
+  });
+
+  // Trend
+  destroyChart('chartTrend');
+  charts['chartTrend']=new Chart(document.getElementById('chartTrend'),{type:'line',
+    data:{labels:MS,datasets:[
+      {label:'Príjmy',data:mI.map(f2),borderColor:'#378ADD',backgroundColor:'rgba(55,138,221,.1)',borderWidth:2,fill:true,tension:.3,pointRadius:3},
+      {label:'Výdavky',data:mO.map(f2),borderColor:'#E24B4A',backgroundColor:'rgba(226,75,74,.07)',borderWidth:2,fill:true,tension:.3,pointRadius:3,borderDash:[5,3]}
+    ]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{ticks:{autoSkip:false,maxRotation:0,font:{size:10}}},y:{ticks:{callback:v=>v+'€',font:{size:10}}}}}
+  });
+
+  // Pie
+  destroyChart('chartPie');
+  charts['chartPie']=new Chart(document.getElementById('chartPie'),{type:'doughnut',
+    data:{labels:FIRMS.map(f=>f.lbl),datasets:[{data:FIRMS.map(f=>f2(fIn[f.id].total)),backgroundColor:FIRMS.map(f=>f.color),borderWidth:2,borderColor:'#fff'}]},
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}}}
+  });
+  document.getElementById('pieLabels').innerHTML=FIRMS.map(f=>`<span style="display:flex;align-items:center;gap:4px"><span style="width:9px;height:9px;border-radius:2px;background:${f.color}"></span>${f.lbl}: ${eur(fIn[f.id].total)}</span>`).join('');
+
+  // Kvartály chart
+  const qI=[],qO=[];
+  QTRS.forEach(q=>{let ti=0,to=0;q.m.forEach(i=>{ti+=mI[i];to+=mO[i];});qI.push(f2(ti));qO.push(f2(to));});
+  destroyChart('chartQtr');
+  charts['chartQtr']=new Chart(document.getElementById('chartQtr'),{type:'bar',
+    data:{labels:['Q1','Q2','Q3','Q4'],datasets:[
+      {label:'Príjmy',data:qI,backgroundColor:'#3B6D11',borderWidth:0},
+      {label:'Výdavky',data:qO,backgroundColor:'#E24B4A',borderWidth:0}
+    ]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{ticks:{font:{size:12}}},y:{ticks:{callback:v=>v+'€',font:{size:10}}}}}
+  });
+
+  // Výdavky kategórie
+  const maxC=Math.max(...Object.values(catO),1);
+  document.getElementById('evalExpCat').innerHTML=Object.entries(catO).sort((a,b)=>b[1]-a[1]).map(([k,v])=>`
+    <div class="bar-row"><span class="bar-lbl" style="font-size:11px">${CAT_LBL[k]||k}</span>
+    <div class="bar-track"><div class="bar-fill" style="width:${(v/maxC*100).toFixed(1)}%;background:#E24B4A"></div></div>
+    <span class="bar-val" style="color:#A32D2D">${eur(v)}</span></div>`).join('')||'<p class="empty">Žiadne výdavky</p>';
+
+  // Osoby
+  const pE=Object.entries(byP).filter(([,v])=>v>0).sort((a,b)=>b[1]-a[1]);
+  const maxP=pE.length?pE[0][1]:1;
+  document.getElementById('evalPersons').innerHTML=pE.length?pE.map(([n,v])=>`
+    <div class="bar-row"><span class="bar-lbl">${n}</span>
+    <div class="bar-track"><div class="bar-fill" style="width:${(v/maxP*100).toFixed(1)}%;background:#D4537E"></div></div>
+    <span class="bar-val" style="color:#72243E">${eur(v)}</span></div>`).join(''):'<p class="empty">Žiadne výplaty</p>';
+}
+
+// ===== ZAMESTNANCI =====
+function updatePersonSel(){
+  const s=document.getElementById('out_person');const cur=s.value;
+  s.innerHTML='<option value="">— vyber —</option>';
+  state.persons.forEach(p=>{const o=document.createElement('option');o.value=p;o.textContent=p;if(p===cur)o.selected=true;s.appendChild(o);});
+}
+function renderOsoby(){
+  const ch=document.getElementById('personChips');ch.innerHTML='';
+  state.persons.forEach((p,i)=>{const c=document.createElement('span');c.className='chip';c.innerHTML=`${p} <span class="rm" onclick="removePerson(${i})">×</span>`;ch.appendChild(c);});
+  const byP={};state.persons.forEach(p=>byP[p]=0);
+  MONTHS.forEach((_,i)=>{gm(i).forEach(e=>{if(e.kind==='expense'&&e.cat==='vyplata'&&e.person){if(!byP[e.person])byP[e.person]=0;byP[e.person]+=e.amount;}});});
+  const pp=document.getElementById('personPayouts');
+  const entries=Object.entries(byP).filter(([,v])=>v>0).sort((a,b)=>b[1]-a[1]);
+  pp.innerHTML=entries.length?'<table class="tbl"><thead><tr><th>Meno</th><th>Vyplatené</th></tr></thead><tbody>'+
+    entries.map(([n,v])=>`<tr><td style="font-weight:600">${n}</td><td style="color:#A32D2D;font-weight:700">${eur(v)}</td></tr>`).join('')+'</tbody></table>':'<p class="empty">Žiadne výplaty</p>';
+}
+function addPerson(){
+  const inp=document.getElementById('newPerson');const name=inp.value.trim();
+  if(!name)return;if(state.persons.includes(name)){toast('Táto osoba už existuje');return;}
+  state.persons.push(name);inp.value='';pushToGitHub();renderOsoby();updatePersonSel();
+}
+function removePerson(i){
+  if(!confirm(`Odstrániť ${state.persons[i]}?`))return;
+  state.persons.splice(i,1);pushToGitHub();renderOsoby();updatePersonSel();
+}
+
+// ===== INIT =====
+loadCfg();
+// Štart
+onFirmChange(); // nastav správny stav formulára
+if(ghCfg.token){syncFromGitHub();}else{setSync('Nastav token','err');showSetup();}
+buildMonthTabs();renderEntries();updatePersonSel();
+</script>
+</body>
+</html>

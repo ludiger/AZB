@@ -29,7 +29,8 @@
         "firm": "creatride",
         "type": "mesacna",
         "amount": 209.99,
-        "desc": ""
+        "desc": "",
+        "paid": true
       },
       {
         "kind": "income",
@@ -490,7 +491,19 @@
     "10": [],
     "11": []
   },
-  "qtrBasket": [],
+  "qtrBasket": [
+    {
+      "firm": "creatride",
+      "type": "kvartalna",
+      "amount": 1490.01,
+      "desc": "",
+      "fromMonth": 0,
+      "qtrKey": "Q1_2025",
+      "payoutMonth": 3,
+      "paid": false,
+      "addedAt": "2026-06-23T20:48:21.716Z"
+    }
+  ],
   "klikBasket": [
     {
       "firm": "creatride",
@@ -572,6 +585,15 @@
       "fromMonth": 0,
       "paid": false,
       "addedAt": "2026-06-23T20:47:19.301Z"
+    },
+    {
+      "firm": "creatride",
+      "type": "klicacka",
+      "amount": 200,
+      "desc": "",
+      "fromMonth": 0,
+      "paid": false,
+      "addedAt": "2026-06-23T20:48:21.716Z"
     }
   ]
 }

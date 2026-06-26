@@ -416,7 +416,8 @@
         "firm": "stability",
         "type": "mesacna",
         "amount": 1200.8,
-        "desc": ""
+        "desc": "",
+        "paid": true
       },
       {
         "kind": "income",
@@ -609,6 +610,15 @@
       "fromMonth": 5,
       "paid": false,
       "addedAt": "2026-06-26T06:20:06.405Z"
+    },
+    {
+      "firm": "stability",
+      "type": "klicacka",
+      "amount": 200,
+      "desc": "",
+      "fromMonth": 5,
+      "paid": false,
+      "addedAt": "2026-06-26T06:21:13.341Z"
     }
   ]
 }

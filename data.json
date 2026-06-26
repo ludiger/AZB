@@ -454,13 +454,6 @@
       },
       {
         "kind": "income",
-        "firm": "stability",
-        "type": "kvartalna",
-        "amount": 2290,
-        "desc": ""
-      },
-      {
-        "kind": "income",
         "firm": "autazababku",
         "type": "kvartalna",
         "amount": 7869.17,

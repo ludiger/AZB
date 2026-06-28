@@ -431,14 +431,6 @@
         "kind": "income",
         "firm": "stability",
         "type": "mesacna",
-        "amount": 1685.6,
-        "desc": "",
-        "paid": true
-      },
-      {
-        "kind": "income",
-        "firm": "stability",
-        "type": "mesacna",
         "amount": 222.18,
         "desc": "",
         "paid": false

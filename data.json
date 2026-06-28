@@ -463,7 +463,7 @@
         "kind": "income",
         "firm": "stability",
         "type": "mesacna",
-        "amount": 800.4,
+        "amount": 195,
         "desc": "",
         "paid": true
       }
@@ -497,6 +497,17 @@
       "payoutMonth": 6,
       "paid": false,
       "addedAt": "2026-06-28T17:43:03.663Z"
+    },
+    {
+      "firm": "stability",
+      "type": "kvartalna",
+      "amount": 405.4,
+      "desc": "",
+      "fromMonth": 5,
+      "qtrKey": "Q2_2025",
+      "payoutMonth": 6,
+      "paid": false,
+      "addedAt": "2026-06-28T17:49:45.247Z"
     }
   ],
   "klikBasket": [
@@ -697,6 +708,15 @@
       "fromMonth": 5,
       "paid": false,
       "addedAt": "2026-06-28T17:47:06.735Z"
+    },
+    {
+      "firm": "stability",
+      "type": "klicacka",
+      "amount": 200,
+      "desc": "",
+      "fromMonth": 5,
+      "paid": false,
+      "addedAt": "2026-06-28T17:49:45.247Z"
     }
   ]
 }

@@ -516,7 +516,7 @@ async function syncFromGitHub(){
     const curMonth=state.curMonth;
     state={...state,...d,persons:d.persons||persons,curMonth};
     if(!state.qtrBasket)state.qtrBasket=[];
-    if(!state.klikBasket)state.klikBasket=[];
+    state.klikBasket=[]; // Reset klikačiek — budú sa zadávať znova
     setSync('Synchronizované','ok');
     buildMonthTabs();renderEntries();updatePersonSel();
     toast('Dáta načítané ✓');
@@ -912,13 +912,13 @@ function onEditSplitChange(which){
 }
 
 function doSaveEdit(){
-  // Načítaj mi/ei pred akoukoľvek operáciou
   const mi=editMi;
   const ei=editEi;
-  if(mi===null||ei===null){toast('Chyba: nenájdený záznam');return;}
-  if(!state.months[mi]||!state.months[mi][ei]){toast('Chyba: záznam neexistuje');return;}
-
-  const e=state.months[mi][ei];
+  if(mi===null||mi===undefined||ei===null||ei===undefined){toast('Chyba: záznam nenájdený');return;}
+  const entries=state.months[mi];
+  if(!entries||ei>=entries.length){toast('Chyba: záznam neexistuje');return;}
+  const e=entries[ei];
+  if(!e){toast('Chyba: prázdny záznam');return;}
 
   if(e.kind==='income'){
     const total=parseFloat(document.getElementById('e_amount').value);
@@ -926,38 +926,25 @@ function doSaveEdit(){
     const firm=document.getElementById('e_firm').value;
     const desc=document.getElementById('e_desc').value.trim();
     const paid=document.getElementById('e_paid').checked;
-
+    // Jednoducho ulož — bez košíkovej logiky
     e.firm=firm;
     e.desc=desc;
     e.paid=paid;
-
+    e.amount=total;
+    if(!isSplit(firm)){
+      e.type=document.getElementById('e_type').value;
+    }
+    // Ulož splitInfo pre zobrazenie
     if(isSplit(firm)){
       const n=parseFloat(document.getElementById('e_now').value)||0;
       const q=parseFloat(document.getElementById('e_qtr').value)||0;
       const k=parseFloat(document.getElementById('e_klik').value)||0;
       const used=f2(n+q+k);
-
-      if(used>0.01&&Math.abs(total-used)>0.01){
-        toast('Súčet rozdelenia ('+eur(used)+') nesedí so sumou ('+eur(total)+')!');return;
+      if(used>0.01){
+        if(Math.abs(total-used)>0.01){toast('Súčet rozdelenia nesedí!');return;}
+        e.splitTotal=total;e.splitNow=n;e.splitQtr=q;e.splitKlik=k;
+        if(n>0)e.amount=n;
       }
-
-      if(used<0.01){
-        // Len zmeň sumu
-        e.amount=total;
-      } else {
-        // Aktualizuj aktuálny záznam
-        if(e.type==='mesacna')e.amount=n>0?n:total;
-        else if(e.type==='kvartalna')e.amount=q>0?q:total;
-        else if(e.type==='klicacka')e.amount=k>0?k:total;
-
-        // Pridaj nové košíkové položky
-        if(e.type!=='kvartalna'&&q>0){state.qtrBasket.push({firm,type:'kvartalna',amount:q,desc,fromMonth:mi,qtrKey:qtrKey(mi),payoutMonth:qtrPayMonth(mi),paid:false,addedAt:new Date().toISOString()});}
-        if(e.type!=='klicacka'&&k>0){state.klikBasket.push({firm,type:'klicacka',amount:k,desc,fromMonth:mi,paid:false,addedAt:new Date().toISOString()});}
-        if(e.type!=='mesacna'&&n>0){gm(mi).push({kind:'income',firm,type:'mesacna',amount:n,desc,paid:false});}
-      }
-    } else {
-      e.type=document.getElementById('e_type').value;
-      e.amount=total;
     }
   } else {
     const amount=parseFloat(document.getElementById('e_expamt').value);
@@ -969,7 +956,7 @@ function doSaveEdit(){
     e.amount=amount;
   }
 
-  // Zatvoriť modal a uložiť
+  // Zatvoriť a uložiť
   document.getElementById('editModal').classList.remove('open');
   editMi=null;editEi=null;
   renderEntries();buildMonthTabs();

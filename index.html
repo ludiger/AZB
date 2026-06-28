@@ -679,15 +679,14 @@ function addIncome(){
     const k=parseFloat(document.getElementById('in_klik').value)||0;
     const used=f2(n+q+k);
     if(used>0.01&&Math.abs(total-used)>0.01){toast('Súčet rozdelenia nesedí!');return;}
+    const gid='g'+Date.now(); // groupId spája časti dokopy
     if(used<0.01){
-      // Bez rozdelenia — ulož ako mesačná
-      gm(state.curMonth).push({kind:'income',firm,type:'mesacna',amount:total,desc,paid:false});
+      gm(state.curMonth).push({kind:'income',firm,type:'mesacna',amount:total,desc,paid:false,splitTotal:total,splitNow:total,splitQtr:0,splitKlik:0,gid});
     } else {
-      if(n>0)gm(state.curMonth).push({kind:'income',firm,type:'mesacna',amount:n,desc,paid:false});
-      if(q>0){state.qtrBasket.push({firm,type:'kvartalna',amount:q,desc,fromMonth:state.curMonth,qtrKey:qtrKey(state.curMonth),payoutMonth:qtrPayMonth(state.curMonth),paid:false,addedAt:new Date().toISOString()});}
-      if(k>0){state.klikBasket.push({firm,type:'klicacka',amount:k,desc,fromMonth:state.curMonth,paid:false,addedAt:new Date().toISOString()});}
+      if(n>0)gm(state.curMonth).push({kind:'income',firm,type:'mesacna',amount:n,desc,paid:false,splitTotal:total,splitNow:n,splitQtr:q,splitKlik:k,gid});
+      if(q>0)state.qtrBasket.push({firm,type:'kvartalna',amount:q,desc,fromMonth:state.curMonth,qtrKey:qtrKey(state.curMonth),payoutMonth:qtrPayMonth(state.curMonth),paid:false,addedAt:new Date().toISOString(),gid,splitTotal:total,splitNow:n,splitQtr:q,splitKlik:k});
+      if(k>0)state.klikBasket.push({firm,type:'klicacka',amount:k,desc,fromMonth:state.curMonth,paid:false,addedAt:new Date().toISOString(),gid,splitTotal:total,splitNow:n,splitQtr:q,splitKlik:k});
     }
-    // Reset
     document.getElementById('in_amount').value='';
     document.getElementById('in_now').value='';
     document.getElementById('in_qtr').value='';
@@ -765,50 +764,28 @@ function renderEntries(){
       const f=firmOf(e.firm);
       const paid=!!e.paid;
       const tc=TYPE_CLR[e.type]||{bg:'#f0f0ee',cl:'#666'};
-      html+=`<div class="entry inc${paid?' done':''}">
+      // Rozdelenie — ak má splitTotal
+      let splitInfo='';
+      if(e.splitTotal&&e.splitTotal>e.amount){
+        const parts=[];
+        if(e.splitNow>0)parts.push(`<span style="color:#185FA5">📋 ${eur(e.splitNow)}</span>`);
+        if(e.splitQtr>0)parts.push(`<span style="color:#3C3489">🧺 ${eur(e.splitQtr)}</span>`);
+        if(e.splitKlik>0)parts.push(`<span style="color:#639922">🖱 ${eur(e.splitKlik)}</span>`);
+        if(parts.length>1)splitInfo=`<div style="font-size:10px;color:#aaa;margin-top:2px;display:flex;gap:6px;flex-wrap:wrap">z celku ${eur(e.splitTotal)}: ${parts.join(' + ')}</div>`;
+      }
+      html+=`<div class="entry inc${paid?' done':''}" style="flex-wrap:wrap">
         <span class="enum">#${idx+1}</span>
         <button onclick="togglePaid(${state.curMonth},${i})" style="border:none;background:none;cursor:pointer;font-size:18px;padding:0;flex-shrink:0">${paid?'✅':'⬜'}</button>
         <span class="bdg ${f.cls}">${f.badge}</span>
         <span class="bdg" style="background:${tc.bg};color:${tc.cl};font-size:10px">${TYPE_LBL[e.type]||e.type}</span>
-        <span class="edesc" style="${paid?'text-decoration:line-through;color:#ccc':''}">${e.desc||''}</span>
+        <span class="edesc" style="${paid?'text-decoration:line-through;color:#ccc':''}">
+          ${e.desc||''}
+          ${splitInfo}
+        </span>
         <span class="eamt pos${paid?' done':''}">${eur(e.amount)}</span>
         <span style="font-size:10px;color:${paid?'#3B6D11':'#ccc'};white-space:nowrap">${paid?'✓ ok':'čaká'}</span>
         <button class="btn sm" style="color:#185FA5;border-color:#c0d8f0;flex-shrink:0" onclick="openEdit(${state.curMonth},${i})"><i class="ti ti-pencil"></i></button>
         <button class="btn sm red" style="flex-shrink:0" onclick="removeEntry(${state.curMonth},${i})"><i class="ti ti-trash"></i></button>
-      </div>`;
-    });
-  }
-
-  // Kvartálny košík — položky pre tento mesiac
-  if(qtrM.length){
-    html+=`<div class="ssep" style="color:#3C3489;margin-top:8px"><i class="ti ti-basket"></i> Kvartálny košík → ${qLabel} <span style="font-weight:400;font-size:10px;color:#aaa">${qtrM.filter(b=>b.paid).length}/${qtrM.length} vyplatených</span></div>`;
-    qtrM.forEach((b,idx)=>{
-      const f=firmOf(b.firm);
-      html+=`<div class="entry inc${b.paid?' done':''}" style="border-left-color:#3C3489">
-        <span class="enum">Q${idx+1}</span>
-        <button onclick="toggleQtrBasketFromEntries(${(state.qtrBasket||[]).indexOf(b)})" style="border:none;background:none;cursor:pointer;font-size:18px;padding:0;flex-shrink:0">${b.paid?'✅':'⬜'}</button>
-        <span class="bdg ${f.cls}">${f.badge}</span>
-        <span class="bdg" style="background:#EEEDFE;color:#3C3489;font-size:10px">Kvartálna</span>
-        <span class="edesc" style="${b.paid?'text-decoration:line-through;color:#ccc':''}">${b.desc||''}</span>
-        <span class="eamt pos${b.paid?' done':''}" style="color:${b.paid?'#97C459':'#3C3489'}">${eur(b.amount)}</span>
-        <span style="font-size:10px;color:${b.paid?'#3B6D11':'#854F0B'};white-space:nowrap">${b.paid?'✓ vyplatené':'⏳ čaká'}</span>
-      </div>`;
-    });
-  }
-
-  // Klikačky košík — položky pre tento mesiac
-  if(klikM.length){
-    html+=`<div class="ssep" style="color:#639922;margin-top:8px"><i class="ti ti-mouse"></i> Klikačky <span style="font-weight:400;font-size:10px;color:#aaa">${klikM.filter(b=>b.paid).length}/${klikM.length} vyplatených</span></div>`;
-    klikM.forEach((b,idx)=>{
-      const f=firmOf(b.firm);
-      html+=`<div class="entry inc${b.paid?' done':''}" style="border-left-color:#639922">
-        <span class="enum">K${idx+1}</span>
-        <button onclick="toggleKlikBasketFromEntries(${(state.klikBasket||[]).indexOf(b)})" style="border:none;background:none;cursor:pointer;font-size:18px;padding:0;flex-shrink:0">${b.paid?'✅':'⬜'}</button>
-        <span class="bdg ${f.cls}">${f.badge}</span>
-        <span class="bdg" style="background:#EAF3DE;color:#3B6D11;font-size:10px">Klikačka</span>
-        <span class="edesc" style="${b.paid?'text-decoration:line-through;color:#ccc':''}">${b.desc||''}</span>
-        <span class="eamt pos${b.paid?' done':''}" style="color:${b.paid?'#97C459':'#639922'}">${eur(b.amount)}</span>
-        <span style="font-size:10px;color:${b.paid?'#3B6D11':'#854F0B'};white-space:nowrap">${b.paid?'✓ vyplatená':'⏳ čaká'}</span>
       </div>`;
     });
   }

@@ -14,20 +14,6 @@
       {
         "kind": "income",
         "firm": "stability",
-        "type": "mesacna",
-        "amount": 1100,
-        "desc": ""
-      },
-      {
-        "kind": "income",
-        "firm": "stability",
-        "type": "mesacna",
-        "amount": 1200,
-        "desc": ""
-      },
-      {
-        "kind": "income",
-        "firm": "stability",
         "type": "klicacka",
         "amount": 900,
         "desc": ""

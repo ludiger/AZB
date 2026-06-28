@@ -402,7 +402,21 @@
         "desc": ""
       }
     ],
-    "5": [],
+    "5": [
+      {
+        "kind": "income",
+        "firm": "stability",
+        "type": "mesacna",
+        "amount": 1300,
+        "desc": "",
+        "paid": false,
+        "splitTotal": 1500,
+        "splitNow": 1300,
+        "splitQtr": 0,
+        "splitKlik": 200,
+        "gid": "g1782670443251"
+      }
+    ],
     "6": [],
     "7": [],
     "8": [],
@@ -688,6 +702,20 @@
       "fromMonth": 5,
       "paid": false,
       "addedAt": "2026-06-28T18:05:22.896Z"
+    },
+    {
+      "firm": "stability",
+      "type": "klicacka",
+      "amount": 200,
+      "desc": "",
+      "fromMonth": 5,
+      "paid": false,
+      "addedAt": "2026-06-28T18:14:03.251Z",
+      "gid": "g1782670443251",
+      "splitTotal": 1500,
+      "splitNow": 1300,
+      "splitQtr": 0,
+      "splitKlik": 200
     }
   ]
 }

@@ -11,20 +11,6 @@
     "1": [
       {
         "kind": "income",
-        "firm": "creatride",
-        "type": "mesacna",
-        "amount": 600,
-        "desc": ""
-      },
-      {
-        "kind": "income",
-        "firm": "creatride",
-        "type": "klicacka",
-        "amount": 1600,
-        "desc": ""
-      },
-      {
-        "kind": "income",
         "firm": "cofidis",
         "type": "mesacna",
         "amount": 2150,

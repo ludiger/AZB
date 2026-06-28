@@ -733,12 +733,28 @@ function renderEntries(){
   const totIn=incs.reduce((a,e)=>a+e.amount,0);
   const totOut=exps.reduce((a,e)=>a+e.amount,0);
   const paidIn=incs.filter(e=>e.paid).reduce((a,e)=>a+e.amount,0);
+  const mesacna=incs.filter(e=>e.type==='mesacna').reduce((a,e)=>a+e.amount,0);
+  const kvartalna=incs.filter(e=>e.type==='kvartalna').reduce((a,e)=>a+e.amount,0);
+  const klicacka=incs.filter(e=>e.type==='klicacka').reduce((a,e)=>a+e.amount,0);
+  const qtrM=(state.qtrBasket||[]).filter(b=>b.fromMonth===state.curMonth);
+  const qtrTot=qtrM.reduce((a,b)=>a+b.amount,0);
+  const qtrPaid=qtrM.filter(b=>b.paid).reduce((a,b)=>a+b.amount,0);
+  const klikM=(state.klikBasket||[]).filter(b=>b.fromMonth===state.curMonth);
+  const klikTot=klikM.reduce((a,b)=>a+b.amount,0);
+  const klikPaid=klikM.filter(b=>b.paid).reduce((a,b)=>a+b.amount,0);
   const bal=totIn-totOut;
+  const qi=QTRS.findIndex(q=>q.m.includes(state.curMonth));
+  const qLabel=qi>=0?['apríl','júl','október','január'][qi]:'Q';
   document.getElementById('monthBal').innerHTML=
-    `<span style="color:#3B6D11">↑ ${eur(totIn)}</span> &nbsp;`+
-    `<span style="color:#A32D2D">↓ ${eur(totOut)}</span> &nbsp;`+
-    `<span style="color:${bal>=0?'#3B6D11':'#A32D2D'};font-size:15px">= ${eur(bal)}</span>`+
-    (totIn>0?` &nbsp;<span style="font-size:11px;color:#888">| ✅ ${eur(paidIn)} · ⏳ ${eur(totIn-paidIn)}</span>`:'');
+    `<div style="display:flex;flex-wrap:wrap;gap:4px 14px;font-size:12px;align-items:center;justify-content:flex-end">
+      <span style="font-size:15px;font-weight:700;color:${bal>=0?'#3B6D11':'#A32D2D'}">= ${eur(bal)}</span>
+      <span style="color:#555">↑ ${eur(totIn)} &nbsp; ↓ ${eur(totOut)}</span>
+      ${mesacna?`<span style="background:#E6F1FB;color:#185FA5;padding:1px 7px;border-radius:99px;font-weight:600">📋 Mes. ${eur(mesacna)}</span>`:''}
+      ${(kvartalna+qtrTot)>0?`<span style="background:#EEEDFE;color:#3C3489;padding:1px 7px;border-radius:99px;font-weight:600">🧺 Q→${qLabel} ${eur(kvartalna+qtrTot)} ${(qtrPaid+kvartalna)>0?'✅':'⏳'}</span>`:''}
+      ${(klicacka+klikTot)>0?`<span style="background:#EAF3DE;color:#3B6D11;padding:1px 7px;border-radius:99px;font-weight:600">🖱 Klik. ${eur(klicacka+klikTot)} ${(klikPaid+klicacka)>0?'✅':'⏳'}</span>`:''}
+      <span style="color:#3B6D11;font-weight:600">✅ ${eur(paidIn)}</span>
+      <span style="color:#854F0B;font-weight:600">⏳ ${eur(totIn-paidIn)}</span>
+    </div>`;
 
   let html='';
   if(incs.length){

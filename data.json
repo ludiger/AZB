@@ -11,13 +11,6 @@
     "1": [
       {
         "kind": "income",
-        "firm": "stability",
-        "type": "mesacna",
-        "amount": 900,
-        "desc": ""
-      },
-      {
-        "kind": "income",
         "firm": "creatride",
         "type": "mesacna",
         "amount": 1508,

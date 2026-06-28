@@ -562,13 +562,72 @@ function switchTab(n){
 // ===== MONTH TABS =====
 function buildMonthTabs(){
   const c=document.getElementById('monthTabs');c.innerHTML='';
+
+  // Klikačky košík — sumy podľa mesiaca
+  const klikByMonth={};
+  (state.klikBasket||[]).forEach(b=>{
+    if(!klikByMonth[b.fromMonth])klikByMonth[b.fromMonth]={tot:0,paid:0};
+    klikByMonth[b.fromMonth].tot+=b.amount;
+    if(b.paid)klikByMonth[b.fromMonth].paid+=b.amount;
+  });
+
+  // Kvartálny košík — sumy podľa mesiaca
+  const qtrByMonth={};
+  (state.qtrBasket||[]).forEach(b=>{
+    if(!qtrByMonth[b.fromMonth])qtrByMonth[b.fromMonth]={tot:0,paid:0};
+    qtrByMonth[b.fromMonth].tot+=b.amount;
+    if(b.paid)qtrByMonth[b.fromMonth].paid+=b.amount;
+  });
+
   MONTHS.forEach((m,i)=>{
+    const entries=state.months[i]||[];
+    const incs=entries.filter(e=>e.kind==='income');
+    const totInc=incs.reduce((a,e)=>a+e.amount,0);
+    const totPaid=incs.filter(e=>e.paid).reduce((a,e)=>a+e.amount,0);
+    const klik=klikByMonth[i];
+    const qtr=qtrByMonth[i];
+    // Ktorý kvartál patrí tento mesiac
+    const qi=QTRS.findIndex(q=>q.m.includes(i));
+    const qLabel=qi>=0?['apríl','júl','október','jan'][qi]:'';
+
+    const has=entries.length>0||(klik&&klik.tot>0)||(qtr&&qtr.tot>0);
+
     const b=document.createElement('button');
-    const has=(state.months[i]||[]).length>0;
     b.className='mbtn'+(i===state.curMonth?' active':'')+(has?' has':'');
-    b.textContent=m;
-    b.title=has?'Má záznamy':'';
     b.onclick=()=>{state.curMonth=i;buildMonthTabs();renderEntries();};
+
+    if(has){
+      const isActive=i===state.curMonth;
+      const dimColor=isActive?'rgba(255,255,255,.8)':'#666';
+      const klikColor=isActive?'rgba(255,255,255,.9)':'#4d8c16';
+      const qtrColor=isActive?'rgba(255,255,255,.9)':'#3C3489';
+
+      let html=`<div style="font-weight:700;font-size:12px;margin-bottom:4px">${m}</div>`;
+
+      if(totInc>0){
+        html+=`<div style="font-size:10px;color:${dimColor}">↑ ${eur(totInc)}</div>`;
+        html+=`<div style="font-size:10px;color:${isActive?'rgba(255,255,255,.85)':'#3B6D11'}">✅ ${eur(totPaid)}</div>`;
+        if(totInc-totPaid>0)
+          html+=`<div style="font-size:10px;color:${isActive?'rgba(255,255,255,.75)':'#854F0B'}">⏳ ${eur(totInc-totPaid)}</div>`;
+      }
+
+      if(qtr&&qtr.tot>0){
+        html+=`<div style="font-size:10px;color:${qtrColor};margin-top:2px;border-top:1px solid ${isActive?'rgba(255,255,255,.3)':'#e0e0dc'};padding-top:2px">`;
+        html+=`🧺 Q→${qLabel}: ${eur(qtr.tot)}`;
+        if(qtr.paid>0)html+=` ✅`;
+        else html+=` ⏳`;
+        html+=`</div>`;
+      }
+
+      if(klik&&klik.tot>0){
+        html+=`<div style="font-size:10px;color:${klikColor}">🖱 ${eur(klik.tot)}${klik.paid>0?' ✅':' ⏳'}</div>`;
+      }
+
+      b.innerHTML=html;
+      b.style.cssText='padding:7px 10px;line-height:1.4;text-align:left;min-width:95px;height:auto';
+    } else {
+      b.textContent=m;
+    }
     c.appendChild(b);
   });
 }

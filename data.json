@@ -8,15 +8,7 @@
   "curMonth": 1,
   "months": {
     "0": [],
-    "1": [
-      {
-        "kind": "income",
-        "firm": "cofidis",
-        "type": "mesacna",
-        "amount": 2150,
-        "desc": ""
-      }
-    ],
+    "1": [],
     "2": [
       {
         "kind": "income",

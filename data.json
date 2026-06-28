@@ -13,13 +13,6 @@
       {
         "kind": "income",
         "firm": "cofidis",
-        "type": "mesacna",
-        "amount": 800,
-        "desc": ""
-      },
-      {
-        "kind": "income",
-        "firm": "cofidis",
         "type": "kvartalna",
         "amount": 2550,
         "desc": ""

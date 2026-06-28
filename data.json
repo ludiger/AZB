@@ -652,7 +652,7 @@
       "amount": 200,
       "desc": "",
       "fromMonth": 5,
-      "paid": false,
+      "paid": true,
       "addedAt": "2026-06-26T06:21:13.341Z"
     },
     {
@@ -661,7 +661,7 @@
       "amount": 300,
       "desc": "",
       "fromMonth": 5,
-      "paid": false,
+      "paid": true,
       "addedAt": "2026-06-26T06:21:52.096Z"
     },
     {
@@ -670,7 +670,7 @@
       "amount": 200,
       "desc": "",
       "fromMonth": 5,
-      "paid": false,
+      "paid": true,
       "addedAt": "2026-06-26T06:22:34.679Z"
     },
     {

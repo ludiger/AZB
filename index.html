@@ -778,6 +778,41 @@ function renderEntries(){
       </div>`;
     });
   }
+
+  // Kvartálny košík — položky pre tento mesiac
+  if(qtrM.length){
+    html+=`<div class="ssep" style="color:#3C3489;margin-top:8px"><i class="ti ti-basket"></i> Kvartálny košík → ${qLabel} <span style="font-weight:400;font-size:10px;color:#aaa">${qtrM.filter(b=>b.paid).length}/${qtrM.length} vyplatených</span></div>`;
+    qtrM.forEach((b,idx)=>{
+      const f=firmOf(b.firm);
+      html+=`<div class="entry inc${b.paid?' done':''}" style="border-left-color:#3C3489">
+        <span class="enum">Q${idx+1}</span>
+        <button onclick="toggleQtrBasketFromEntries(${(state.qtrBasket||[]).indexOf(b)})" style="border:none;background:none;cursor:pointer;font-size:18px;padding:0;flex-shrink:0">${b.paid?'✅':'⬜'}</button>
+        <span class="bdg ${f.cls}">${f.badge}</span>
+        <span class="bdg" style="background:#EEEDFE;color:#3C3489;font-size:10px">Kvartálna</span>
+        <span class="edesc" style="${b.paid?'text-decoration:line-through;color:#ccc':''}">${b.desc||''}</span>
+        <span class="eamt pos${b.paid?' done':''}" style="color:${b.paid?'#97C459':'#3C3489'}">${eur(b.amount)}</span>
+        <span style="font-size:10px;color:${b.paid?'#3B6D11':'#854F0B'};white-space:nowrap">${b.paid?'✓ vyplatené':'⏳ čaká'}</span>
+      </div>`;
+    });
+  }
+
+  // Klikačky košík — položky pre tento mesiac
+  if(klikM.length){
+    html+=`<div class="ssep" style="color:#639922;margin-top:8px"><i class="ti ti-mouse"></i> Klikačky <span style="font-weight:400;font-size:10px;color:#aaa">${klikM.filter(b=>b.paid).length}/${klikM.length} vyplatených</span></div>`;
+    klikM.forEach((b,idx)=>{
+      const f=firmOf(b.firm);
+      html+=`<div class="entry inc${b.paid?' done':''}" style="border-left-color:#639922">
+        <span class="enum">K${idx+1}</span>
+        <button onclick="toggleKlikBasketFromEntries(${(state.klikBasket||[]).indexOf(b)})" style="border:none;background:none;cursor:pointer;font-size:18px;padding:0;flex-shrink:0">${b.paid?'✅':'⬜'}</button>
+        <span class="bdg ${f.cls}">${f.badge}</span>
+        <span class="bdg" style="background:#EAF3DE;color:#3B6D11;font-size:10px">Klikačka</span>
+        <span class="edesc" style="${b.paid?'text-decoration:line-through;color:#ccc':''}">${b.desc||''}</span>
+        <span class="eamt pos${b.paid?' done':''}" style="color:${b.paid?'#97C459':'#639922'}">${eur(b.amount)}</span>
+        <span style="font-size:10px;color:${b.paid?'#3B6D11':'#854F0B'};white-space:nowrap">${b.paid?'✓ vyplatená':'⏳ čaká'}</span>
+      </div>`;
+    });
+  }
+
   if(exps.length){
     html+=`<div class="ssep" style="color:#A32D2D;margin-top:10px"><i class="ti ti-arrow-up-circle"></i> Výdavky (${exps.length})</div>`;
     exps.forEach((e,idx)=>{
@@ -801,6 +836,16 @@ function togglePaid(mi,ei){
   const e=gm(mi)[ei];if(!e)return;
   e.paid=!e.paid;
   renderEntries();pushToGitHub();
+}
+function toggleQtrBasketFromEntries(idx){
+  if(!state.qtrBasket||!state.qtrBasket[idx])return;
+  state.qtrBasket[idx].paid=!state.qtrBasket[idx].paid;
+  renderEntries();buildMonthTabs();pushToGitHub();
+}
+function toggleKlikBasketFromEntries(idx){
+  if(!state.klikBasket||!state.klikBasket[idx])return;
+  state.klikBasket[idx].paid=!state.klikBasket[idx].paid;
+  renderEntries();buildMonthTabs();pushToGitHub();
 }
 function removeEntry(mi,ei){
   if(!confirm('Odstrániť tento záznam?'))return;

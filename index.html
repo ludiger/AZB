@@ -117,6 +117,7 @@ select:focus,input:focus{outline:none;border-color:#378ADD;box-shadow:0 0 0 3px 
     <div style="display:flex;gap:8px;flex-wrap:wrap">
       <button class="btn sm" onclick="showSetup()"><i class="ti ti-brand-github"></i> GitHub</button>
       <button class="btn sm" onclick="syncFromGitHub()"><i class="ti ti-refresh"></i> Sync</button>
+      <button class="btn sm" onclick="clearAllBaskets()" style="color:#A32D2D;border-color:#F09595" title="Vyčistiť kvartálne košíky a klikačky"><i class="ti ti-trash"></i> Košíky</button>
     </div>
   </div>
 
@@ -516,7 +517,10 @@ async function syncFromGitHub(){
     const curMonth=state.curMonth;
     state={...state,...d,persons:d.persons||persons,curMonth};
     if(!state.qtrBasket)state.qtrBasket=[];
-    state.klikBasket=[]; // Reset klikačiek — budú sa zadávať znova
+    // Vyčisti košíky pre mesiace kde nie sú žiadne záznamy
+    const monthsWithData=Object.keys(state.months||{}).filter(mi=>(state.months[mi]||[]).length>0).map(Number);
+    state.qtrBasket=(state.qtrBasket||[]).filter(b=>monthsWithData.includes(b.fromMonth));
+    state.klikBasket=(state.klikBasket||[]).filter(b=>monthsWithData.includes(b.fromMonth));
     setSync('Synchronizované','ok');
     buildMonthTabs();renderEntries();updatePersonSel();
     toast('Dáta načítané ✓');
@@ -741,6 +745,9 @@ function renderEntries(){
   const klikM=(state.klikBasket||[]).filter(b=>b.fromMonth===state.curMonth);
   const klikTot=klikM.reduce((a,b)=>a+b.amount,0);
   const klikPaid=klikM.filter(b=>b.paid).reduce((a,b)=>a+b.amount,0);
+  // splitKlik — z uložených splitInfo v záznamoch (pre záznamy bez košíka)
+  const splitKlikTot=incs.filter(e=>e.splitKlik>0).reduce((a,e)=>a+e.splitKlik,0);
+  const totalKlik=klikTot>0?klikTot:splitKlikTot;
   const bal=totIn-totOut;
   const qi=QTRS.findIndex(q=>q.m.includes(state.curMonth));
   const qLabel=qi>=0?['apríl','júl','október','január'][qi]:'Q';
@@ -750,7 +757,7 @@ function renderEntries(){
       <span style="color:#555">↑ ${eur(totIn)} &nbsp; ↓ ${eur(totOut)}</span>
       ${mesacna?`<span style="background:#E6F1FB;color:#185FA5;padding:1px 7px;border-radius:99px;font-weight:600">📋 Mes. ${eur(mesacna)}</span>`:''}
       ${(kvartalna+qtrTot)>0?`<span style="background:#EEEDFE;color:#3C3489;padding:1px 7px;border-radius:99px;font-weight:600">🧺 Q→${qLabel} ${eur(kvartalna+qtrTot)} ${(qtrPaid+kvartalna)>0?'✅':'⏳'}</span>`:''}
-      ${(klicacka+klikTot)>0?`<span style="background:#EAF3DE;color:#3B6D11;padding:1px 7px;border-radius:99px;font-weight:600">🖱 Klik. ${eur(klicacka+klikTot)} ${(klikPaid+klicacka)>0?'✅':'⏳'}</span>`:''}
+      ${totalKlik>0?`<span style="background:#EAF3DE;color:#3B6D11;padding:1px 7px;border-radius:99px;font-weight:600">🖱 Klik. ${eur(totalKlik)} ${klikPaid>0?'✅':'⏳'}</span>`:''}
       <span style="color:#3B6D11;font-weight:600">✅ ${eur(paidIn)}</span>
       <span style="color:#854F0B;font-weight:600">⏳ ${eur(totIn-paidIn)}</span>
     </div>`;
@@ -826,8 +833,22 @@ function toggleKlikBasketFromEntries(idx){
 }
 function removeEntry(mi,ei){
   if(!confirm('Odstrániť tento záznam?'))return;
+  const e=state.months[mi][ei];
+  // Vymaž aj súvisiace košíkové položky (podľa gid alebo fromMonth+desc)
+  if(e&&e.gid){
+    state.qtrBasket=(state.qtrBasket||[]).filter(b=>b.gid!==e.gid);
+    state.klikBasket=(state.klikBasket||[]).filter(b=>b.gid!==e.gid);
+  }
   state.months[mi].splice(ei,1);
   renderEntries();buildMonthTabs();pushToGitHub();
+}
+
+function clearAllBaskets(){
+  if(!confirm('Vyčistiť všetky kvartálne košíky a klikačky? Toto zmaže všetky položky z košíkov.'))return;
+  state.qtrBasket=[];
+  state.klikBasket=[];
+  renderEntries();buildMonthTabs();pushToGitHub();
+  toast('Košíky vyčistené ✓');
 }
 
 // ===== EDIT MODAL =====
@@ -1318,8 +1339,7 @@ function removePerson(i){
 
 // ===== INIT =====
 loadCfg();
-// Štart
-onFirmChange(); // nastav správny stav formulára
+onFirmChange();
 if(ghCfg.token){syncFromGitHub();}else{setSync('Nastav token','err');showSetup();}
 buildMonthTabs();renderEntries();updatePersonSel();
 </script>

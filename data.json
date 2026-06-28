@@ -14,20 +14,6 @@
     "4": [
       {
         "kind": "income",
-        "firm": "stability",
-        "type": "klicacka",
-        "amount": 1600,
-        "desc": ""
-      },
-      {
-        "kind": "income",
-        "firm": "autazababku",
-        "type": "mesacna",
-        "amount": 284.99,
-        "desc": ""
-      },
-      {
-        "kind": "income",
         "firm": "cofidis",
         "type": "mesacna",
         "amount": 1500,

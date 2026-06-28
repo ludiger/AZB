@@ -13,20 +13,6 @@
       {
         "kind": "income",
         "firm": "stability",
-        "type": "mesacna",
-        "amount": 1100,
-        "desc": ""
-      },
-      {
-        "kind": "income",
-        "firm": "stability",
-        "type": "klicacka",
-        "amount": 1400,
-        "desc": ""
-      },
-      {
-        "kind": "income",
-        "firm": "stability",
         "type": "kvartalna",
         "amount": 5300,
         "desc": ""

@@ -12,20 +12,6 @@
     "2": [
       {
         "kind": "income",
-        "firm": "autazababku",
-        "type": "kvartalna",
-        "amount": 2100,
-        "desc": ""
-      },
-      {
-        "kind": "income",
-        "firm": "autazababku",
-        "type": "klicacka",
-        "amount": 1300,
-        "desc": ""
-      },
-      {
-        "kind": "income",
         "firm": "cofidis",
         "type": "mesacna",
         "amount": 800,

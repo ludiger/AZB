@@ -12,14 +12,6 @@
         "kind": "income",
         "firm": "creatride",
         "type": "mesacna",
-        "amount": 800,
-        "desc": "",
-        "paid": true
-      },
-      {
-        "kind": "income",
-        "firm": "creatride",
-        "type": "mesacna",
         "amount": 900,
         "desc": "",
         "paid": true

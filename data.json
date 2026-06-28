@@ -13,20 +13,6 @@
     "3": [
       {
         "kind": "income",
-        "firm": "autazababku",
-        "type": "mesacna",
-        "amount": 547.5,
-        "desc": ""
-      },
-      {
-        "kind": "income",
-        "firm": "autazababku",
-        "type": "klicacka",
-        "amount": 1100,
-        "desc": ""
-      },
-      {
-        "kind": "income",
         "firm": "cofidis",
         "type": "mesacna",
         "amount": 1089,

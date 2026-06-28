@@ -742,7 +742,7 @@
       "amount": 200,
       "desc": "",
       "fromMonth": 5,
-      "paid": true,
+      "paid": false,
       "addedAt": "2026-06-28T17:51:58.729Z"
     }
   ]

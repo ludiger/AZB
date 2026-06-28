@@ -7,16 +7,7 @@
   ],
   "curMonth": 0,
   "months": {
-    "0": [
-      {
-        "kind": "income",
-        "firm": "creatride",
-        "type": "mesacna",
-        "amount": 1000,
-        "desc": "",
-        "paid": true
-      }
-    ],
+    "0": [],
     "1": [
       {
         "kind": "income",

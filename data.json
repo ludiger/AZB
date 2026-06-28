@@ -726,6 +726,15 @@
       "fromMonth": 5,
       "paid": false,
       "addedAt": "2026-06-28T17:50:34.738Z"
+    },
+    {
+      "firm": "stability",
+      "type": "klicacka",
+      "amount": 300,
+      "desc": "",
+      "fromMonth": 5,
+      "paid": false,
+      "addedAt": "2026-06-28T17:51:22.410Z"
     }
   ]
 }

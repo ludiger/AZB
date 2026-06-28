@@ -13,13 +13,6 @@
         "kind": "income",
         "firm": "stability",
         "type": "mesacna",
-        "amount": 800,
-        "desc": ""
-      },
-      {
-        "kind": "income",
-        "firm": "stability",
-        "type": "mesacna",
         "amount": 900,
         "desc": ""
       },

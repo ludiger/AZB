@@ -1111,34 +1111,27 @@ function renderPrehlad(){
   const rows=MONTHS.map((mn,i)=>{
     const entries=gm(i);
     const incs=entries.filter(e=>e.kind==='income');
-    const mes=incs.filter(e=>e.type==='mesacna').reduce((a,e)=>a+e.amount,0);
-    // Kvartálna — z entries AJ z qtrBasket pre tento mesiac
-    const kvEntries=incs.filter(e=>e.type==='kvartalna').reduce((a,e)=>a+e.amount,0);
-    const kvBasket=(state.qtrBasket||[]).filter(b=>b.fromMonth===i).reduce((a,b)=>a+b.amount,0);
-    const kv=kvEntries+kvBasket;
-    // Klikačka — z entries AJ z klikBasket pre tento mesiac
-    const klikEntries=incs.filter(e=>e.type==='klicacka').reduce((a,e)=>a+e.amount,0);
-    const klikBasket=(state.klikBasket||[]).filter(b=>b.fromMonth===i).reduce((a,b)=>a+b.amount,0);
-    // Aj zo splitKlik uložených priamo na zázname
-    const klikSplit=incs.filter(e=>e.splitKlik>0).reduce((a,e)=>a+e.splitKlik,0);
-    const klik=klikEntries+klikBasket+klikSplit;
-    // Kvartálna zo splitQtr
-    const kvSplit=incs.filter(e=>e.splitQtr>0).reduce((a,e)=>a+e.splitQtr,0);
-    const kvTotal=kv+kvSplit;
-    const inc=mes+kvTotal+klik;
+    // Mesačná — suma aktuálnych záznamov (amount = mesačná časť)
+    const mes=incs.reduce((a,e)=>a+e.amount,0);
+    // Kvartálna — z qtrBasket pre tento mesiac (tam sú správne uložené)
+    const kv=(state.qtrBasket||[]).filter(b=>b.fromMonth===i).reduce((a,b)=>a+b.amount,0);
+    // Klikačka — z klikBasket pre tento mesiac
+    const klik=(state.klikBasket||[]).filter(b=>b.fromMonth===i).reduce((a,b)=>a+b.amount,0);
+    const inc=mes+kv+klik;
     const exp=entries.filter(e=>e.kind==='expense').reduce((a,e)=>a+e.amount,0);
-    const paid=incs.filter(e=>e.paid).reduce((a,e)=>a+e.amount,0);
-    const qtrPaid=(state.qtrBasket||[]).filter(b=>b.fromMonth===i&&b.paid).reduce((a,b)=>a+b.amount,0);
-    const klikPaid=(state.klikBasket||[]).filter(b=>b.fromMonth===i&&b.paid).reduce((a,b)=>a+b.amount,0);
-    const totalPaid=paid+qtrPaid+klikPaid;
+    // Preplatené
+    const paidMes=incs.filter(e=>e.paid).reduce((a,e)=>a+e.amount,0);
+    const paidQtr=(state.qtrBasket||[]).filter(b=>b.fromMonth===i&&b.paid).reduce((a,b)=>a+b.amount,0);
+    const paidKlik=(state.klikBasket||[]).filter(b=>b.fromMonth===i&&b.paid).reduce((a,b)=>a+b.amount,0);
+    const totalPaid=paidMes+paidQtr+paidKlik;
     const bal=inc-exp;
-    tI+=inc;tO+=exp;tP+=totalPaid;tMes+=mes;tKv+=kvTotal;tKlik+=klik;
+    tI+=inc;tO+=exp;tP+=totalPaid;tMes+=mes;tKv+=kv;tKlik+=klik;
     const d=v=>v?eur(v):'<span style="color:#ddd">—</span>';
     const hasData=entries.length>0||(state.qtrBasket||[]).some(b=>b.fromMonth===i)||(state.klikBasket||[]).some(b=>b.fromMonth===i);
     return`<tr>
       <td style="font-weight:600">${mn}</td>
       <td style="color:#185FA5;font-weight:500">${d(mes)}</td>
-      <td style="color:#3C3489;font-weight:500">${d(kvTotal)}</td>
+      <td style="color:#3C3489;font-weight:500">${d(kv)}</td>
       <td style="color:#639922;font-weight:500">${d(klik)}</td>
       <td style="color:#A32D2D;font-weight:500">${d(exp)}</td>
       <td style="font-weight:700;color:${bal>=0?'#3B6D11':'#A32D2D'}">${hasData?eur(bal):'—'}</td>

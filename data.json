@@ -129,6 +129,19 @@
         "splitQtr": 0,
         "splitKlik": 300,
         "gid": "g1784541959678"
+      },
+      {
+        "kind": "income",
+        "firm": "autazababku",
+        "type": "mesacna",
+        "amount": 1958.9,
+        "desc": "",
+        "paid": true,
+        "splitTotal": 2258.9,
+        "splitNow": 1958.9,
+        "splitQtr": 0,
+        "splitKlik": 300,
+        "gid": "g1784541980108"
       }
     ],
     "3": [
@@ -183,19 +196,6 @@
         "splitQtr": 0,
         "splitKlik": 0,
         "gid": "g1784540382396"
-      },
-      {
-        "kind": "income",
-        "firm": "autazababku",
-        "type": "mesacna",
-        "amount": 1958.9,
-        "desc": "",
-        "paid": true,
-        "splitTotal": 2258.9,
-        "splitNow": 1958.9,
-        "splitQtr": 0,
-        "splitKlik": 300,
-        "gid": "g1784541980108"
       },
       {
         "kind": "income",
@@ -1111,7 +1111,7 @@
       "type": "klicacka",
       "amount": 300,
       "desc": "",
-      "fromMonth": 3,
+      "fromMonth": 2,
       "paid": false,
       "addedAt": "2026-07-20T10:06:20.108Z",
       "gid": "g1784541980108",

@@ -17,11 +17,11 @@
         "type": "mesacna",
         "amount": 900,
         "desc": "SUA26/000863",
-        "paid": false,
-        "splitTotal": 1100,
+        "paid": true,
+        "splitTotal": 900,
         "splitNow": 900,
         "splitQtr": 0,
-        "splitKlik": 200,
+        "splitKlik": 0,
         "gid": "g1784539584786"
       },
       {

@@ -7,7 +7,7 @@
     "MatuÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¡",
     "Juro"
   ],
-  "curMonth": 2,
+  "curMonth": 4,
   "months": {
     "0": [
       {
@@ -610,6 +610,19 @@
         "splitQtr": 2075.01,
         "splitKlik": 300,
         "gid": "g1784543096318"
+      },
+      {
+        "kind": "income",
+        "firm": "cofidis",
+        "type": "mesacna",
+        "amount": 1200,
+        "desc": "",
+        "paid": false,
+        "splitTotal": 1200,
+        "splitNow": 1200,
+        "splitQtr": 0,
+        "splitKlik": 0,
+        "gid": "g1784544982954"
       }
     ],
     "5": [

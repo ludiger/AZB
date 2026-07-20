@@ -61,6 +61,19 @@
         "splitQtr": 0,
         "splitKlik": 300,
         "gid": "g1784543432122"
+      },
+      {
+        "kind": "income",
+        "firm": "creatride",
+        "type": "mesacna",
+        "amount": 800,
+        "desc": "",
+        "paid": false,
+        "splitTotal": 1000,
+        "splitNow": 800,
+        "splitQtr": 0,
+        "splitKlik": 200,
+        "gid": "g1784543458448"
       }
     ],
     "1": [
@@ -1512,6 +1525,20 @@
       "splitNow": 1700,
       "splitQtr": 0,
       "splitKlik": 300
+    },
+    {
+      "firm": "creatride",
+      "type": "klicacka",
+      "amount": 200,
+      "desc": "",
+      "fromMonth": 0,
+      "paid": false,
+      "addedAt": "2026-07-20T10:30:58.448Z",
+      "gid": "g1784543458448",
+      "splitTotal": 1000,
+      "splitNow": 800,
+      "splitQtr": 0,
+      "splitKlik": 200
     }
   ]
 }

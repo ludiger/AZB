@@ -7,9 +7,23 @@
     "MatuÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¡",
     "Juro"
   ],
-  "curMonth": 6,
+  "curMonth": 0,
   "months": {
-    "0": [],
+    "0": [
+      {
+        "kind": "income",
+        "firm": "creatride",
+        "type": "mesacna",
+        "amount": 1720,
+        "desc": "",
+        "paid": false,
+        "splitTotal": 2020,
+        "splitNow": 1720,
+        "splitQtr": 0,
+        "splitKlik": 300,
+        "gid": "g1784543371251"
+      }
+    ],
     "1": [
       {
         "kind": "income",
@@ -1387,6 +1401,20 @@
       "splitNow": 1654,
       "splitQtr": 0,
       "splitKlik": 200
+    },
+    {
+      "firm": "creatride",
+      "type": "klicacka",
+      "amount": 300,
+      "desc": "",
+      "fromMonth": 0,
+      "paid": false,
+      "addedAt": "2026-07-20T10:29:31.251Z",
+      "gid": "g1784543371251",
+      "splitTotal": 2020,
+      "splitNow": 1720,
+      "splitQtr": 0,
+      "splitKlik": 300
     }
   ]
 }

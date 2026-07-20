@@ -71,11 +71,11 @@
         "type": "mesacna",
         "amount": 1247,
         "desc": "",
-        "paid": false,
-        "splitTotal": 1447,
+        "paid": true,
+        "splitTotal": 1247,
         "splitNow": 1247,
         "splitQtr": 0,
-        "splitKlik": 200,
+        "splitKlik": 0,
         "gid": "g1784539800509"
       }
     ],

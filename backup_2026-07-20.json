@@ -4,10 +4,10 @@
     "Petka",
     "Dominika",
     "Mato Hany",
-    "MatuÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¡",
+    "MatuÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¡",
     "Juro"
   ],
-  "curMonth": 6,
+  "curMonth": 4,
   "months": {
     "0": [
       {
@@ -206,6 +206,27 @@
         "splitQtr": 0,
         "splitKlik": 300,
         "gid": "g1784543724129"
+      },
+      {
+        "kind": "income",
+        "firm": "cofidis",
+        "type": "mesacna",
+        "amount": 2000,
+        "desc": "",
+        "paid": true
+      },
+      {
+        "kind": "income",
+        "firm": "cofidis",
+        "type": "mesacna",
+        "amount": 150,
+        "desc": "",
+        "paid": true,
+        "splitTotal": 1000,
+        "splitNow": 150,
+        "splitQtr": 850,
+        "splitKlik": 0,
+        "gid": "g1784544826659"
       }
     ],
     "2": [
@@ -351,6 +372,45 @@
         "splitQtr": 2100.31,
         "splitKlik": 300,
         "gid": "g1784542050186"
+      },
+      {
+        "kind": "income",
+        "firm": "cofidis",
+        "type": "mesacna",
+        "amount": 300,
+        "desc": "",
+        "paid": true,
+        "splitTotal": 2000,
+        "splitNow": 300,
+        "splitQtr": 1700,
+        "splitKlik": 0,
+        "gid": "g1784544853813"
+      },
+      {
+        "kind": "income",
+        "firm": "cofidis",
+        "type": "mesacna",
+        "amount": 500,
+        "desc": "",
+        "paid": true,
+        "splitTotal": 500,
+        "splitNow": 500,
+        "splitQtr": 0,
+        "splitKlik": 0,
+        "gid": "g1784544919917"
+      },
+      {
+        "kind": "income",
+        "firm": "cofidis",
+        "type": "mesacna",
+        "amount": 1089,
+        "desc": "",
+        "paid": true,
+        "splitTotal": 1089,
+        "splitNow": 1089,
+        "splitQtr": 0,
+        "splitKlik": 0,
+        "gid": "g1784544954773"
       }
     ],
     "3": [
@@ -550,6 +610,32 @@
         "splitQtr": 2075.01,
         "splitKlik": 300,
         "gid": "g1784543096318"
+      },
+      {
+        "kind": "income",
+        "firm": "cofidis",
+        "type": "mesacna",
+        "amount": 1200,
+        "desc": "",
+        "paid": true,
+        "splitTotal": 1200,
+        "splitNow": 1200,
+        "splitQtr": 0,
+        "splitKlik": 0,
+        "gid": "g1784544982954"
+      },
+      {
+        "kind": "income",
+        "firm": "cofidis",
+        "type": "mesacna",
+        "amount": 594,
+        "desc": "",
+        "paid": true,
+        "splitTotal": 594,
+        "splitNow": 594,
+        "splitQtr": 0,
+        "splitKlik": 0,
+        "gid": "g1784545028223"
       }
     ],
     "5": [
@@ -1013,6 +1099,38 @@
       "splitNow": 477.9,
       "splitQtr": 3522.1,
       "splitKlik": 300
+    },
+    {
+      "firm": "cofidis",
+      "type": "kvartalna",
+      "amount": 850,
+      "desc": "",
+      "fromMonth": 1,
+      "qtrKey": "Q1_2025",
+      "payoutMonth": 3,
+      "paid": true,
+      "addedAt": "2026-07-20T10:53:46.659Z",
+      "gid": "g1784544826659",
+      "splitTotal": 1000,
+      "splitNow": 150,
+      "splitQtr": 850,
+      "splitKlik": 0
+    },
+    {
+      "firm": "cofidis",
+      "type": "kvartalna",
+      "amount": 1700,
+      "desc": "",
+      "fromMonth": 2,
+      "qtrKey": "Q1_2025",
+      "payoutMonth": 3,
+      "paid": true,
+      "addedAt": "2026-07-20T10:54:13.813Z",
+      "gid": "g1784544853813",
+      "splitTotal": 2000,
+      "splitNow": 300,
+      "splitQtr": 1700,
+      "splitKlik": 0
     }
   ],
   "klikBasket": [

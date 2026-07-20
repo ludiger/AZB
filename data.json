@@ -1296,7 +1296,7 @@
       "amount": 300,
       "desc": "",
       "fromMonth": 2,
-      "paid": false,
+      "paid": true,
       "addedAt": "2026-07-20T10:07:30.187Z",
       "gid": "g1784542050186",
       "splitTotal": 2700,

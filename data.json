@@ -7,7 +7,7 @@
     "MatuÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¡",
     "Juro"
   ],
-  "curMonth": 4,
+  "curMonth": 6,
   "months": {
     "0": [],
     "1": [
@@ -566,6 +566,19 @@
         "splitQtr": 0,
         "splitKlik": 0,
         "gid": "g1784541509561"
+      },
+      {
+        "kind": "income",
+        "firm": "autazababku",
+        "type": "mesacna",
+        "amount": 1654,
+        "desc": "",
+        "paid": false,
+        "splitTotal": 1854,
+        "splitNow": 1654,
+        "splitQtr": 0,
+        "splitKlik": 200,
+        "gid": "g1784543169815"
       }
     ],
     "7": [],
@@ -1360,6 +1373,20 @@
       "splitNow": 284.99,
       "splitQtr": 2075.01,
       "splitKlik": 300
+    },
+    {
+      "firm": "autazababku",
+      "type": "klicacka",
+      "amount": 200,
+      "desc": "",
+      "fromMonth": 6,
+      "paid": false,
+      "addedAt": "2026-07-20T10:26:09.815Z",
+      "gid": "g1784543169815",
+      "splitTotal": 1854,
+      "splitNow": 1654,
+      "splitQtr": 0,
+      "splitKlik": 200
     }
   ]
 }

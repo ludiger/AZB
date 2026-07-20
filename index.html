@@ -476,7 +476,8 @@ const FIRMS=[
   {id:'autazababku',lbl:'Autazababku',badge:'AU',cls:'au',color:'#D85A30'},
   {id:'cofidis',lbl:'Cofidis',badge:'CF',cls:'cf',color:'#D4537E'}
 ];
-const SPLIT_FIRMS=['stability','creatride','autazababku'];
+const SPLIT_FIRMS=['stability','creatride','autazababku','cofidis'];
+const NO_KLIK_FIRMS=['cofidis']; // tieto firmy nemajú klikačku
 const TYPE_LBL={mesacna:'Mesačná',kvartalna:'Kvartálna',klicacka:'Klikačka'};
 const TYPE_CLR={mesacna:{bg:'#E6F1FB',cl:'#185FA5'},kvartalna:{bg:'#EEEDFE',cl:'#3C3489'},klicacka:{bg:'#EAF3DE',cl:'#3B6D11'}};
 const CAT_LBL={vyplata:'Výplata',prevadzka:'Prevádzka',telefon:'Telefón',pohonne:'Pohonné hmoty',material:'Materiál',ine:'Iné'};
@@ -684,8 +685,12 @@ function buildMonthTabs(){
 function onFirmChange(){
   const firm=document.getElementById('in_firm').value;
   const split=isSplit(firm);
+  const noKlik=NO_KLIK_FIRMS.includes(firm);
   document.getElementById('splitSection').style.display=split?'':'none';
   document.getElementById('simpleType').style.display=split?'none':'';
+  // Skry klikačku pre firmy bez klikačky
+  const klikRow=document.getElementById('in_klik').closest('.frow');
+  if(klikRow)klikRow.style.display=noKlik?'none':'';
   ['in_now','in_qtr','in_klik'].forEach(id=>document.getElementById(id).value='');
   document.getElementById('splitCheck').innerHTML='';
   document.getElementById('in_amount').value='';
@@ -956,14 +961,22 @@ function openEdit(mi,ei){
 
 function updateEditSplit(firm,e){
   const split=isSplit(firm);
+  const noKlik=NO_KLIK_FIRMS.includes(firm);
   document.getElementById('e_splitBox').style.display=split?'':'none';
   document.getElementById('e_simpleType').style.display=split?'none':'';
+  // Skry klikačku pre firmy bez klikačky
+  const klikRow=document.getElementById('e_klik').closest('.frow');
+  if(klikRow)klikRow.style.display=noKlik?'none':'';
   if(split){
-    document.getElementById('e_now').value=e&&e.type==='mesacna'?e.amount:'';
-    document.getElementById('e_qtr').value=e&&e.type==='kvartalna'?e.amount:'';
-    document.getElementById('e_klik').value=e&&e.type==='klicacka'?e.amount:'';
-    const amt=e?e.amount:0;
-    document.getElementById('e_splitCheck').innerHTML=amt?'<span style="color:#3B6D11;font-weight:600">✓ Súčet sedí ('+eur(amt)+')</span>':'';
+    // Pre split záznamy predvyplň polia
+    const splitNow=e&&e.splitNow?e.splitNow:(e&&e.type==='mesacna'?e.amount:'');
+    const splitQtr=e&&e.splitQtr?e.splitQtr:(e&&e.type==='kvartalna'?e.amount:'');
+    const splitKlik=e&&e.splitKlik&&!noKlik?e.splitKlik:(e&&e.type==='klicacka'&&!noKlik?e.amount:'');
+    document.getElementById('e_now').value=splitNow||'';
+    document.getElementById('e_qtr').value=splitQtr||'';
+    document.getElementById('e_klik').value=noKlik?'':splitKlik||'';
+    const total=e?(e.splitTotal||e.amount):0;
+    document.getElementById('e_splitCheck').innerHTML=total?'<span style="color:#3B6D11;font-weight:600">✓ Súčet sedí ('+eur(total)+')</span>':'';
   } else {
     if(e)document.getElementById('e_type').value=e.type||'mesacna';
   }

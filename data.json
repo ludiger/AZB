@@ -623,6 +623,19 @@
         "splitQtr": 0,
         "splitKlik": 0,
         "gid": "g1784544982954"
+      },
+      {
+        "kind": "income",
+        "firm": "cofidis",
+        "type": "mesacna",
+        "amount": 594,
+        "desc": "",
+        "paid": false,
+        "splitTotal": 594,
+        "splitNow": 594,
+        "splitQtr": 0,
+        "splitKlik": 0,
+        "gid": "g1784545028223"
       }
     ],
     "5": [

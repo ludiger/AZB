@@ -16,7 +16,7 @@
         "type": "mesacna",
         "amount": 1720,
         "desc": "",
-        "paid": false,
+        "paid": true,
         "splitTotal": 2020,
         "splitNow": 1720,
         "splitQtr": 0,

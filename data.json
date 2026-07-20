@@ -4,7 +4,7 @@
     "Petka",
     "Dominika",
     "Mato Hany",
-    "MatuÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¡",
+    "MatuÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¡",
     "Juro"
   ],
   "curMonth": 1,
@@ -214,6 +214,19 @@
         "amount": 2000,
         "desc": "",
         "paid": true
+      },
+      {
+        "kind": "income",
+        "firm": "cofidis",
+        "type": "mesacna",
+        "amount": 150,
+        "desc": "",
+        "paid": false,
+        "splitTotal": 1000,
+        "splitNow": 150,
+        "splitQtr": 850,
+        "splitKlik": 0,
+        "gid": "g1784544826659"
       }
     ],
     "2": [
@@ -1021,6 +1034,22 @@
       "splitNow": 477.9,
       "splitQtr": 3522.1,
       "splitKlik": 300
+    },
+    {
+      "firm": "cofidis",
+      "type": "kvartalna",
+      "amount": 850,
+      "desc": "",
+      "fromMonth": 1,
+      "qtrKey": "Q1_2025",
+      "payoutMonth": 3,
+      "paid": false,
+      "addedAt": "2026-07-20T10:53:46.659Z",
+      "gid": "g1784544826659",
+      "splitTotal": 1000,
+      "splitNow": 150,
+      "splitQtr": 850,
+      "splitKlik": 0
     }
   ],
   "klikBasket": [

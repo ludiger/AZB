@@ -7,7 +7,7 @@
     "MatuÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¡",
     "Juro"
   ],
-  "curMonth": 1,
+  "curMonth": 3,
   "months": {
     "0": [
       {
@@ -1006,7 +1006,7 @@
       "fromMonth": 1,
       "qtrKey": "Q1_2025",
       "payoutMonth": 3,
-      "paid": false,
+      "paid": true,
       "addedAt": "2026-07-20T10:34:23.198Z",
       "gid": "g1784543663198",
       "splitTotal": 4300,

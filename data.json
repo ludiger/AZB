@@ -4,7 +4,7 @@
     "Petka",
     "Dominika",
     "Mato Hany",
-    "MatuÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¡",
+    "MatuÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¡",
     "Juro"
   ],
   "curMonth": 3,
@@ -116,6 +116,19 @@
         "splitQtr": 0,
         "splitKlik": 0,
         "gid": "g1784539914006"
+      },
+      {
+        "kind": "income",
+        "firm": "autazababku",
+        "type": "mesacna",
+        "amount": 2400.65,
+        "desc": "",
+        "paid": true,
+        "splitTotal": 2700.65,
+        "splitNow": 2400.65,
+        "splitQtr": 0,
+        "splitKlik": 300,
+        "gid": "g1784541959678"
       }
     ],
     "3": [
@@ -170,19 +183,6 @@
         "splitQtr": 0,
         "splitKlik": 0,
         "gid": "g1784540382396"
-      },
-      {
-        "kind": "income",
-        "firm": "autazababku",
-        "type": "mesacna",
-        "amount": 2400.65,
-        "desc": "",
-        "paid": true,
-        "splitTotal": 2700.65,
-        "splitNow": 2400.65,
-        "splitQtr": 0,
-        "splitKlik": 300,
-        "gid": "g1784541959678"
       },
       {
         "kind": "income",
@@ -1097,7 +1097,7 @@
       "type": "klicacka",
       "amount": 300,
       "desc": "",
-      "fromMonth": 3,
+      "fromMonth": 2,
       "paid": false,
       "addedAt": "2026-07-20T10:05:59.679Z",
       "gid": "g1784541959678",

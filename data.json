@@ -7,7 +7,7 @@
     "MatuÃÂÃÂ¡",
     "Juro"
   ],
-  "curMonth": 5,
+  "curMonth": 3,
   "months": {
     "0": [],
     "1": [
@@ -164,11 +164,11 @@
         "type": "mesacna",
         "amount": 220.5,
         "desc": "",
-        "paid": false,
-        "splitTotal": 1600,
+        "paid": true,
+        "splitTotal": 220.5,
         "splitNow": 220.5,
-        "splitQtr": 1179.5,
-        "splitKlik": 200,
+        "splitQtr": 0,
+        "splitKlik": 0,
         "gid": "g1784540382396"
       }
     ],

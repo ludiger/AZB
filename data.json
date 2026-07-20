@@ -136,13 +136,13 @@
         "kind": "income",
         "firm": "stability",
         "type": "mesacna",
-        "amount": 1300,
+        "amount": 1100,
         "desc": "",
-        "paid": false,
+        "paid": true,
         "splitTotal": 1300,
-        "splitNow": 1300,
+        "splitNow": 1100,
         "splitQtr": 0,
-        "splitKlik": 0,
+        "splitKlik": 200,
         "gid": "g1784540194515"
       }
     ],

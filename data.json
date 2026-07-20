@@ -2,59 +2,14 @@
   "persons": [
     "Janka",
     "Petka",
-    "LuboÅ¡",
+    "LuboÃÂ¡",
     "Dominika"
   ],
   "curMonth": 5,
   "months": {
-    "5": [
-      {
-        "kind": "income",
-        "firm": "stability",
-        "type": "mesacna",
-        "amount": 195,
-        "desc": "",
-        "paid": false,
-        "splitTotal": 800,
-        "splitNow": 195,
-        "splitQtr": 405,
-        "splitKlik": 200,
-        "gid": "g1782671903578"
-      }
-    ]
+    "5": [],
+    "6": []
   },
-  "qtrBasket": [
-    {
-      "firm": "stability",
-      "type": "kvartalna",
-      "amount": 405,
-      "desc": "",
-      "fromMonth": 5,
-      "qtrKey": "Q2_2025",
-      "payoutMonth": 6,
-      "paid": false,
-      "addedAt": "2026-06-28T18:38:23.578Z",
-      "gid": "g1782671903578",
-      "splitTotal": 800,
-      "splitNow": 195,
-      "splitQtr": 405,
-      "splitKlik": 200
-    }
-  ],
-  "klikBasket": [
-    {
-      "firm": "stability",
-      "type": "klicacka",
-      "amount": 200,
-      "desc": "",
-      "fromMonth": 5,
-      "paid": false,
-      "addedAt": "2026-06-28T18:38:23.578Z",
-      "gid": "g1782671903578",
-      "splitTotal": 800,
-      "splitNow": 195,
-      "splitQtr": 405,
-      "splitKlik": 200
-    }
-  ]
+  "qtrBasket": [],
+  "klikBasket": []
 }

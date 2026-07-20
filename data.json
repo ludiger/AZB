@@ -1610,7 +1610,7 @@
       "amount": 200,
       "desc": "",
       "fromMonth": 0,
-      "paid": false,
+      "paid": true,
       "addedAt": "2026-07-20T10:29:48.329Z",
       "gid": "g1784543388329",
       "splitTotal": 1100,

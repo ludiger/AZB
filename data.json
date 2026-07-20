@@ -7,7 +7,7 @@
     "MatuÅ¡",
     "Juro"
   ],
-  "curMonth": 1,
+  "curMonth": 2,
   "months": {
     "0": [],
     "1": [
@@ -38,7 +38,21 @@
         "gid": "g1784539614345"
       }
     ],
-    "2": [],
+    "2": [
+      {
+        "kind": "income",
+        "firm": "stability",
+        "type": "mesacna",
+        "amount": 2700,
+        "desc": "",
+        "paid": false,
+        "splitTotal": 3000,
+        "splitNow": 2700,
+        "splitQtr": 0,
+        "splitKlik": 300,
+        "gid": "g1784539716263"
+      }
+    ],
     "3": [],
     "4": [],
     "5": [],
@@ -76,6 +90,20 @@
       "gid": "g1784539614345",
       "splitTotal": 1100,
       "splitNow": 800,
+      "splitQtr": 0,
+      "splitKlik": 300
+    },
+    {
+      "firm": "stability",
+      "type": "klicacka",
+      "amount": 300,
+      "desc": "",
+      "fromMonth": 2,
+      "paid": false,
+      "addedAt": "2026-07-20T09:28:36.263Z",
+      "gid": "g1784539716263",
+      "splitTotal": 3000,
+      "splitNow": 2700,
       "splitQtr": 0,
       "splitKlik": 300
     }

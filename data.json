@@ -4,10 +4,10 @@
     "Petka",
     "Dominika",
     "Mato Hany",
-    "MatuÃÂÃÂ¡",
+    "MatuÃÂÃÂÃÂÃÂ¡",
     "Juro"
   ],
-  "curMonth": 3,
+  "curMonth": 6,
   "months": {
     "0": [],
     "1": [
@@ -384,7 +384,21 @@
         "gid": "g1784541070654"
       }
     ],
-    "6": [],
+    "6": [
+      {
+        "kind": "income",
+        "firm": "stability",
+        "type": "mesacna",
+        "amount": 300,
+        "desc": "",
+        "paid": false,
+        "splitTotal": 600,
+        "splitNow": 300,
+        "splitQtr": 0,
+        "splitKlik": 300,
+        "gid": "g1784541420033"
+      }
+    ],
     "7": [],
     "8": [],
     "9": [],
@@ -885,6 +899,20 @@
       "splitNow": 224.85,
       "splitQtr": 775.15,
       "splitKlik": 200
+    },
+    {
+      "firm": "stability",
+      "type": "klicacka",
+      "amount": 300,
+      "desc": "",
+      "fromMonth": 6,
+      "paid": false,
+      "addedAt": "2026-07-20T09:57:00.033Z",
+      "gid": "g1784541420033",
+      "splitTotal": 600,
+      "splitNow": 300,
+      "splitQtr": 0,
+      "splitKlik": 300
     }
   ]
 }

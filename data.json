@@ -796,10 +796,10 @@
         "amount": 336,
         "desc": "",
         "paid": false,
-        "splitTotal": 336,
+        "splitTotal": 2850.75,
         "splitNow": 336,
-        "splitQtr": 0,
-        "splitKlik": 0,
+        "splitQtr": 2214.75,
+        "splitKlik": 300,
         "gid": "g1784541451037"
       },
       {

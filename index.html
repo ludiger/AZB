@@ -398,6 +398,14 @@ select:focus,input:focus{outline:none;border-color:#378ADD;box-shadow:0 0 0 3px 
           </select>
         </div>
       </div>
+      <div class="frow"><span class="flbl">Mesiac</span>
+        <select id="e_month" class="full">
+          <option value="0">Január</option><option value="1">Február</option><option value="2">Marec</option>
+          <option value="3">Apríl</option><option value="4">Máj</option><option value="5">Jún</option>
+          <option value="6">Júl</option><option value="7">August</option><option value="8">September</option>
+          <option value="9">Október</option><option value="10">November</option><option value="11">December</option>
+        </select>
+      </div>
       <div class="frow"><span class="flbl">Poznámka</span>
         <input type="text" id="e_desc" class="full">
       </div>
@@ -410,7 +418,14 @@ select:focus,input:focus{outline:none;border-color:#378ADD;box-shadow:0 0 0 3px 
 
     <!-- VÝDAVOK polia -->
     <div id="editExp" style="display:none">
-      <div class="frow"><span class="flbl">Kategória</span>
+      <div class="frow"><span class="flbl">Mesiac</span>
+        <select id="e_month_exp" class="full">
+          <option value="0">Január</option><option value="1">Február</option><option value="2">Marec</option>
+          <option value="3">Apríl</option><option value="4">Máj</option><option value="5">Jún</option>
+          <option value="6">Júl</option><option value="7">August</option><option value="8">September</option>
+          <option value="9">Október</option><option value="10">November</option><option value="11">December</option>
+        </select>
+      </div>
         <select id="e_cat" class="full">
           <option value="vyplata">Výplata zamestnanca</option>
           <option value="prevadzka">Prevádzka</option>
@@ -900,6 +915,7 @@ function openEdit(mi,ei){
     document.getElementById('e_amount').value=displayAmt;
     document.getElementById('e_desc').value=e.desc||'';
     document.getElementById('e_paid').checked=!!e.paid;
+    document.getElementById('e_month').value=mi;
 
     const split=isSplit(firm);
     document.getElementById('e_splitBox').style.display=split?'':'none';
@@ -917,6 +933,7 @@ function openEdit(mi,ei){
     }
   } else {
     document.getElementById('e_cat').value=e.cat||'vyplata';
+    document.getElementById('e_month_exp').value=mi;
     document.getElementById('e_edesc').value=e.desc||'';
     document.getElementById('e_outfirm').value=e.firm||'';
     document.getElementById('e_expamt').value=e.amount||'';
@@ -997,6 +1014,7 @@ function doSaveEdit(){
     const firm=document.getElementById('e_firm').value;
     const desc=document.getElementById('e_desc').value.trim();
     const paid=document.getElementById('e_paid').checked;
+    const newMi=parseInt(document.getElementById('e_month').value);
 
     e.firm=firm;
     e.desc=desc;
@@ -1021,21 +1039,37 @@ function doSaveEdit(){
 
       // Aktualizuj košíky podľa gid
       if(e.gid){
-        (state.qtrBasket||[]).forEach(b=>{if(b.gid===e.gid){b.amount=q||b.amount;b.desc=desc;}});
-        (state.klikBasket||[]).forEach(b=>{if(b.gid===e.gid){b.amount=k||b.amount;b.desc=desc;}});
+        (state.qtrBasket||[]).forEach(b=>{if(b.gid===e.gid){b.amount=q||b.amount;b.desc=desc;b.fromMonth=newMi;b.qtrKey=qtrKey(newMi);b.payoutMonth=qtrPayMonth(newMi);}});
+        (state.klikBasket||[]).forEach(b=>{if(b.gid===e.gid){b.amount=k||b.amount;b.desc=desc;b.fromMonth=newMi;}});
+      }
+      // Presun do iného mesiaca ak sa zmenil
+      if(newMi!==mi){
+        state.months[mi].splice(ei,1);
+        gm(newMi).push(e);
       }
     } else {
       e.type=document.getElementById('e_type').value;
       e.amount=total;
+      // Presun do iného mesiaca
+      if(newMi!==mi){
+        state.months[mi].splice(ei,1);
+        gm(newMi).push(e);
+      }
     }
   } else {
     const amount=parseFloat(document.getElementById('e_expamt').value);
     if(!amount||amount<=0){toast('Zadaj platnú sumu');return;}
+    const newMiExp=parseInt(document.getElementById('e_month_exp').value);
     e.cat=document.getElementById('e_cat').value;
     e.person=document.getElementById('e_person').value;
     e.desc=document.getElementById('e_edesc').value.trim()||e.person||'';
     e.firm=document.getElementById('e_outfirm').value;
     e.amount=amount;
+    // Presun do iného mesiaca ak sa zmenil
+    if(newMiExp!==mi){
+      state.months[mi].splice(ei,1);
+      gm(newMiExp).push(e);
+    }
   }
 
   document.getElementById('editModal').classList.remove('open');

@@ -42,7 +42,7 @@
         "type": "mesacna",
         "amount": 209.99,
         "desc": "",
-        "paid": false,
+        "paid": true,
         "splitTotal": 1900,
         "splitNow": 209.99,
         "splitQtr": 1490.01,

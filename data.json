@@ -1108,7 +1108,7 @@
       "fromMonth": 1,
       "qtrKey": "Q1_2025",
       "payoutMonth": 3,
-      "paid": false,
+      "paid": true,
       "addedAt": "2026-07-20T10:53:46.659Z",
       "gid": "g1784544826659",
       "splitTotal": 1000,

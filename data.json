@@ -7,7 +7,7 @@
     "MatuÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¡",
     "Juro"
   ],
-  "curMonth": 3,
+  "curMonth": 6,
   "months": {
     "0": [
       {
@@ -730,7 +730,7 @@
         "type": "mesacna",
         "amount": 2600.15,
         "desc": "",
-        "paid": true,
+        "paid": false,
         "splitTotal": 2600.15,
         "splitNow": 2600.15,
         "splitQtr": 0,

@@ -783,10 +783,10 @@
         "amount": 300,
         "desc": "",
         "paid": false,
-        "splitTotal": 300,
+        "splitTotal": 600,
         "splitNow": 300,
         "splitQtr": 0,
-        "splitKlik": 0,
+        "splitKlik": 300,
         "gid": "g1784541420033"
       },
       {

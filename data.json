@@ -4,13 +4,13 @@
     "Petka",
     "Dominika",
     "Mato Hany",
-    "MatuÃÂ¡",
+    "MatuÃÂÃÂ¡",
     "Juro",
     "Palo",
     "Dano",
     "Denis",
     "Dado",
-    "JoÃÂ¾ko"
+    "JoÃÂÃÂ¾ko"
   ],
   "curMonth": 6,
   "months": {
@@ -866,6 +866,19 @@
         "splitQtr": 0,
         "splitKlik": 0,
         "gid": "g1784552011415"
+      },
+      {
+        "kind": "income",
+        "firm": "stability",
+        "type": "mesacna",
+        "amount": 3200,
+        "desc": "TILES TILE",
+        "paid": false,
+        "splitTotal": 3500,
+        "splitNow": 3200,
+        "splitQtr": 0,
+        "splitKlik": 300,
+        "gid": "g1784627675414"
       }
     ],
     "7": [],
@@ -1950,6 +1963,20 @@
       "splitNow": 202.35,
       "splitQtr": 1497.65,
       "splitKlik": 200
+    },
+    {
+      "firm": "stability",
+      "type": "klicacka",
+      "amount": 300,
+      "desc": "TILES TILE",
+      "fromMonth": 6,
+      "paid": false,
+      "addedAt": "2026-07-21T09:54:35.414Z",
+      "gid": "g1784627675414",
+      "splitTotal": 3500,
+      "splitNow": 3200,
+      "splitQtr": 0,
+      "splitKlik": 300
     }
   ]
 }

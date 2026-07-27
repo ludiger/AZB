@@ -4,13 +4,13 @@
     "Petka",
     "Dominika",
     "Mato Hany",
-    "MatuÃÂÃÂÃÂÃÂ¡",
+    "MatuÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¡",
     "Juro",
     "Palo",
     "Dano",
     "Denis",
     "Dado",
-    "JoÃÂÃÂÃÂÃÂ¾ko"
+    "JoÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¾ko"
   ],
   "curMonth": 6,
   "months": {
@@ -781,7 +781,7 @@
         "firm": "stability",
         "type": "mesacna",
         "amount": 300,
-        "desc": "",
+        "desc": "SUA26/005310",
         "paid": true,
         "splitTotal": 600,
         "splitNow": 300,
@@ -808,7 +808,7 @@
         "type": "mesacna",
         "amount": 1600.75,
         "desc": "",
-        "paid": false,
+        "paid": true,
         "splitTotal": 1800.75,
         "splitNow": 1600.75,
         "splitQtr": 0,
@@ -843,19 +843,6 @@
       },
       {
         "kind": "income",
-        "firm": "stability",
-        "type": "mesacna",
-        "amount": 202.35,
-        "desc": "SUA26/005503",
-        "paid": false,
-        "splitTotal": 1900,
-        "splitNow": 202.35,
-        "splitQtr": 1497.65,
-        "splitKlik": 200,
-        "gid": "g1784550612593"
-      },
-      {
-        "kind": "income",
         "firm": "cofidis",
         "type": "mesacna",
         "amount": 594,
@@ -871,14 +858,27 @@
         "kind": "income",
         "firm": "stability",
         "type": "mesacna",
-        "amount": 3200,
-        "desc": "TILES TILE",
+        "amount": 3300,
+        "desc": "TILES TILE - SUA26/005618",
         "paid": false,
-        "splitTotal": 3500,
-        "splitNow": 3200,
+        "splitTotal": 3600,
+        "splitNow": 3300,
         "splitQtr": 0,
         "splitKlik": 300,
         "gid": "g1784627675414"
+      },
+      {
+        "kind": "income",
+        "firm": "stability",
+        "type": "mesacna",
+        "amount": 1512,
+        "desc": "SUA26/005583",
+        "paid": true,
+        "splitTotal": 1712,
+        "splitNow": 1512,
+        "splitQtr": 0,
+        "splitKlik": 200,
+        "gid": "g1785131764406"
       }
     ],
     "7": [],
@@ -1175,22 +1175,6 @@
       "splitNow": 300,
       "splitQtr": 1700,
       "splitKlik": 0
-    },
-    {
-      "firm": "stability",
-      "type": "kvartalna",
-      "amount": 1497.65,
-      "desc": "SUA26/005503",
-      "fromMonth": 6,
-      "qtrKey": "Q3_2025",
-      "payoutMonth": 9,
-      "paid": false,
-      "addedAt": "2026-07-20T12:30:12.593Z",
-      "gid": "g1784550612593",
-      "splitTotal": 1900,
-      "splitNow": 202.35,
-      "splitQtr": 1497.65,
-      "splitKlik": 200
     }
   ],
   "klikBasket": [
@@ -1562,7 +1546,7 @@
       "firm": "stability",
       "type": "klicacka",
       "amount": 300,
-      "desc": "",
+      "desc": "SUA26/005310",
       "fromMonth": 6,
       "paid": false,
       "addedAt": "2026-07-20T09:57:00.033Z",
@@ -1953,22 +1937,8 @@
     {
       "firm": "stability",
       "type": "klicacka",
-      "amount": 200,
-      "desc": "SUA26/005503",
-      "fromMonth": 6,
-      "paid": false,
-      "addedAt": "2026-07-20T12:30:12.594Z",
-      "gid": "g1784550612593",
-      "splitTotal": 1900,
-      "splitNow": 202.35,
-      "splitQtr": 1497.65,
-      "splitKlik": 200
-    },
-    {
-      "firm": "stability",
-      "type": "klicacka",
       "amount": 300,
-      "desc": "TILES TILE",
+      "desc": "TILES TILE - SUA26/005618",
       "fromMonth": 6,
       "paid": false,
       "addedAt": "2026-07-21T09:54:35.414Z",
@@ -1977,6 +1947,20 @@
       "splitNow": 3200,
       "splitQtr": 0,
       "splitKlik": 300
+    },
+    {
+      "firm": "stability",
+      "type": "klicacka",
+      "amount": 200,
+      "desc": "SUA26/005583",
+      "fromMonth": 6,
+      "paid": false,
+      "addedAt": "2026-07-27T05:56:04.406Z",
+      "gid": "g1785131764406",
+      "splitTotal": 1712,
+      "splitNow": 1512,
+      "splitQtr": 0,
+      "splitKlik": 200
     }
   ]
 }

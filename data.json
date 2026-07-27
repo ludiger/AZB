@@ -4,13 +4,13 @@
     "Petka",
     "Dominika",
     "Mato Hany",
-    "MatuÃÂÃÂÃÂÃÂ¡",
+    "MatuÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¡",
     "Juro",
     "Palo",
     "Dano",
     "Denis",
     "Dado",
-    "JoÃÂÃÂÃÂÃÂ¾ko"
+    "JoÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¾ko"
   ],
   "curMonth": 6,
   "months": {
@@ -873,7 +873,7 @@
         "type": "mesacna",
         "amount": 1512,
         "desc": "SUA26/005583",
-        "paid": false,
+        "paid": true,
         "splitTotal": 1712,
         "splitNow": 1512,
         "splitQtr": 0,

@@ -866,6 +866,19 @@
         "splitQtr": 0,
         "splitKlik": 300,
         "gid": "g1784627675414"
+      },
+      {
+        "kind": "income",
+        "firm": "stability",
+        "type": "mesacna",
+        "amount": 1512,
+        "desc": "SUA26/005583",
+        "paid": false,
+        "splitTotal": 1712,
+        "splitNow": 1512,
+        "splitQtr": 0,
+        "splitKlik": 200,
+        "gid": "g1785131764406"
       }
     ],
     "7": [],
@@ -1934,6 +1947,20 @@
       "splitNow": 3200,
       "splitQtr": 0,
       "splitKlik": 300
+    },
+    {
+      "firm": "stability",
+      "type": "klicacka",
+      "amount": 200,
+      "desc": "SUA26/005583",
+      "fromMonth": 6,
+      "paid": false,
+      "addedAt": "2026-07-27T05:56:04.406Z",
+      "gid": "g1785131764406",
+      "splitTotal": 1712,
+      "splitNow": 1512,
+      "splitQtr": 0,
+      "splitKlik": 200
     }
   ]
 }

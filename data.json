@@ -843,19 +843,6 @@
       },
       {
         "kind": "income",
-        "firm": "stability",
-        "type": "mesacna",
-        "amount": 202.35,
-        "desc": "SUA26/005503",
-        "paid": false,
-        "splitTotal": 1900,
-        "splitNow": 202.35,
-        "splitQtr": 1497.65,
-        "splitKlik": 200,
-        "gid": "g1784550612593"
-      },
-      {
-        "kind": "income",
         "firm": "cofidis",
         "type": "mesacna",
         "amount": 594,
@@ -1175,22 +1162,6 @@
       "splitNow": 300,
       "splitQtr": 1700,
       "splitKlik": 0
-    },
-    {
-      "firm": "stability",
-      "type": "kvartalna",
-      "amount": 1497.65,
-      "desc": "SUA26/005503",
-      "fromMonth": 6,
-      "qtrKey": "Q3_2025",
-      "payoutMonth": 9,
-      "paid": false,
-      "addedAt": "2026-07-20T12:30:12.593Z",
-      "gid": "g1784550612593",
-      "splitTotal": 1900,
-      "splitNow": 202.35,
-      "splitQtr": 1497.65,
-      "splitKlik": 200
     }
   ],
   "klikBasket": [
@@ -1949,20 +1920,6 @@
       "splitNow": 600,
       "splitQtr": 0,
       "splitKlik": 300
-    },
-    {
-      "firm": "stability",
-      "type": "klicacka",
-      "amount": 200,
-      "desc": "SUA26/005503",
-      "fromMonth": 6,
-      "paid": false,
-      "addedAt": "2026-07-20T12:30:12.594Z",
-      "gid": "g1784550612593",
-      "splitTotal": 1900,
-      "splitNow": 202.35,
-      "splitQtr": 1497.65,
-      "splitKlik": 200
     },
     {
       "firm": "stability",

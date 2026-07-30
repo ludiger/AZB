@@ -4,13 +4,13 @@
     "Petka",
     "Dominika",
     "Mato Hany",
-    "MatuÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¡",
+    "MatuÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¡",
     "Juro",
     "Palo",
     "Dano",
     "Denis",
     "Dado",
-    "JoÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¾ko"
+    "JoÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¾ko"
   ],
   "curMonth": 6,
   "months": {
@@ -879,6 +879,19 @@
         "splitQtr": 0,
         "splitKlik": 200,
         "gid": "g1785131764406"
+      },
+      {
+        "kind": "income",
+        "firm": "autazababku",
+        "type": "mesacna",
+        "amount": 3182,
+        "desc": "",
+        "paid": false,
+        "splitTotal": 3482,
+        "splitNow": 3182,
+        "splitQtr": 0,
+        "splitKlik": 300,
+        "gid": "g1785413489198"
       }
     ],
     "7": [],
@@ -1961,6 +1974,20 @@
       "splitNow": 1512,
       "splitQtr": 0,
       "splitKlik": 200
+    },
+    {
+      "firm": "autazababku",
+      "type": "klicacka",
+      "amount": 300,
+      "desc": "",
+      "fromMonth": 6,
+      "paid": false,
+      "addedAt": "2026-07-30T12:11:29.198Z",
+      "gid": "g1785413489198",
+      "splitTotal": 3482,
+      "splitNow": 3182,
+      "splitQtr": 0,
+      "splitKlik": 300
     }
   ]
 }

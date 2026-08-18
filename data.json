@@ -1954,7 +1954,7 @@
       "amount": 300,
       "desc": "TILES TILE - SUA26/005618",
       "fromMonth": 6,
-      "paid": false,
+      "paid": true,
       "addedAt": "2026-07-21T09:54:35.414Z",
       "gid": "g1784627675414",
       "splitTotal": 3500,

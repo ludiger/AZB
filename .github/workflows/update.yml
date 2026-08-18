@@ -1,0 +1,24 @@
+name: Update App
+
+on:
+  workflow_dispatch:
+    inputs:
+      content:
+        description: 'Base64 encoded index.html content'
+        required: true
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Update index.html
+        run: |
+          echo "${{ github.event.inputs.content }}" | base64 -d > index.html
+      - name: Commit and push
+        run: |
+          git config user.email "bot@github.com"
+          git config user.name "GitHub Bot"
+          git add index.html
+          git commit -m "Auto update index.html"
+          git push

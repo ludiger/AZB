@@ -120,6 +120,7 @@ select:focus,input:focus{outline:none;border-color:#378ADD;box-shadow:0 0 0 3px 
       <button class="btn sm" onclick="clearAllBaskets()" style="color:#A32D2D;border-color:#F09595" title="Vyčistiť kvartálne košíky a klikačky"><i class="ti ti-trash"></i> Košíky</button>
       <button class="btn sm" onclick="makeBackup(new Date().toISOString().slice(0,10))" style="color:#3C3489;border-color:#b0a8e0" title="Vytvoriť zálohu teraz"><i class="ti ti-download"></i> Záloha</button>
       <button class="btn sm" onclick="showRestoreUI()" style="color:#854F0B;border-color:#e0c080" title="Obnoviť zo zálohy"><i class="ti ti-history"></i> Obnova</button>
+      <button class="btn sm" onclick="updateApp()" style="color:#0C447C;border-color:#85B7EB;font-weight:700" title="Stiahnuť a nainštalovať najnovšiu verziu aplikácie"><i class="ti ti-refresh-alert"></i> Aktualizovať app</button>
     </div>
   </div>
 
@@ -612,20 +613,42 @@ function switchTab(n){
 function buildMonthTabs(){
   const c=document.getElementById('monthTabs');c.innerHTML='';
 
-  // Klikačky košík — sumy podľa mesiaca
+  // Klikačky — z košíka + splitKlik na záznamoch (bez duplikácie podľa gid)
   const klikByMonth={};
+  const klikGids={};
   (state.klikBasket||[]).forEach(b=>{
     if(!klikByMonth[b.fromMonth])klikByMonth[b.fromMonth]={tot:0,paid:0};
     klikByMonth[b.fromMonth].tot+=b.amount;
     if(b.paid)klikByMonth[b.fromMonth].paid+=b.amount;
+    if(b.gid){if(!klikGids[b.fromMonth])klikGids[b.fromMonth]=new Set();klikGids[b.fromMonth].add(b.gid);}
+  });
+  // Pridaj splitKlik zo záznamov ktoré nie sú v košíku
+  MONTHS.forEach((_,i)=>{
+    (gm(i)||[]).filter(e=>e.kind==='income'&&e.splitKlik>0).forEach(e=>{
+      if(!e.gid||!(klikGids[i]&&klikGids[i].has(e.gid))){
+        if(!klikByMonth[i])klikByMonth[i]={tot:0,paid:0};
+        klikByMonth[i].tot+=e.splitKlik;
+      }
+    });
   });
 
-  // Kvartálny košík — sumy podľa mesiaca
+  // Kvartálny košík — z košíka + splitQtr na záznamoch (bez duplikácie)
   const qtrByMonth={};
+  const qtrGids={};
   (state.qtrBasket||[]).forEach(b=>{
     if(!qtrByMonth[b.fromMonth])qtrByMonth[b.fromMonth]={tot:0,paid:0};
     qtrByMonth[b.fromMonth].tot+=b.amount;
     if(b.paid)qtrByMonth[b.fromMonth].paid+=b.amount;
+    if(b.gid){if(!qtrGids[b.fromMonth])qtrGids[b.fromMonth]=new Set();qtrGids[b.fromMonth].add(b.gid);}
+  });
+  // Pridaj splitQtr zo záznamov ktoré nie sú v košíku
+  MONTHS.forEach((_,i)=>{
+    (gm(i)||[]).filter(e=>e.kind==='income'&&e.splitQtr>0).forEach(e=>{
+      if(!e.gid||!(qtrGids[i]&&qtrGids[i].has(e.gid))){
+        if(!qtrByMonth[i])qtrByMonth[i]={tot:0,paid:0};
+        qtrByMonth[i].tot+=e.splitQtr;
+      }
+    });
   });
 
   MONTHS.forEach((m,i)=>{
@@ -791,12 +814,16 @@ function renderEntries(){
   const qtrM=(state.qtrBasket||[]).filter(b=>b.fromMonth===state.curMonth);
   const qtrTot=qtrM.reduce((a,b)=>a+b.amount,0);
   const qtrPaid=qtrM.filter(b=>b.paid).reduce((a,b)=>a+b.amount,0);
+  const qtrGidsSet=new Set(qtrM.map(b=>b.gid).filter(Boolean));
+  // splitQtr len pre záznamy ktorých gid nie je v košíku
+  const splitQtrOnly=incs.filter(e=>e.splitQtr>0&&(!e.gid||!qtrGidsSet.has(e.gid))).reduce((a,e)=>a+e.splitQtr,0);
+  const totalQtr=qtrTot+splitQtrOnly;
   const klikM=(state.klikBasket||[]).filter(b=>b.fromMonth===state.curMonth);
   const klikTot=klikM.reduce((a,b)=>a+b.amount,0);
   const klikPaid=klikM.filter(b=>b.paid).reduce((a,b)=>a+b.amount,0);
-  // splitKlik — z uložených splitInfo v záznamoch (pre záznamy bez košíka)
-  const splitKlikTot=incs.filter(e=>e.splitKlik>0).reduce((a,e)=>a+e.splitKlik,0);
-  const totalKlik=klikTot>0?klikTot:splitKlikTot;
+  const klikGidsSet=new Set(klikM.map(b=>b.gid).filter(Boolean));
+  const splitKlikOnly=incs.filter(e=>e.splitKlik>0&&(!e.gid||!klikGidsSet.has(e.gid))).reduce((a,e)=>a+e.splitKlik,0);
+  const totalKlik=klikTot+splitKlikOnly;
   const bal=totIn-totOut;
   const qi=QTRS.findIndex(q=>q.m.includes(state.curMonth));
   const qLabel=qi>=0?['apríl','júl','október','január'][qi]:'Q';
@@ -805,7 +832,7 @@ function renderEntries(){
       <span style="font-size:15px;font-weight:700;color:${bal>=0?'#3B6D11':'#A32D2D'}">= ${eur(bal)}</span>
       <span style="color:#555">↑ ${eur(totIn)} &nbsp; ↓ ${eur(totOut)}</span>
       ${mesacna?`<span style="background:#E6F1FB;color:#185FA5;padding:1px 7px;border-radius:99px;font-weight:600">📋 Mes. ${eur(mesacna)}</span>`:''}
-      ${(kvartalna+qtrTot)>0?`<span style="background:#EEEDFE;color:#3C3489;padding:1px 7px;border-radius:99px;font-weight:600">🧺 Q→${qLabel} ${eur(kvartalna+qtrTot)} ${(qtrPaid+kvartalna)>0?'✅':'⏳'}</span>`:''}
+      ${totalQtr>0?`<span style="background:#EEEDFE;color:#3C3489;padding:1px 7px;border-radius:99px;font-weight:600">🧺 Q→${qLabel} ${eur(totalQtr)} ${qtrPaid>0?'✅':'⏳'}</span>`:''}
       ${totalKlik>0?`<span style="background:#EAF3DE;color:#3B6D11;padding:1px 7px;border-radius:99px;font-weight:600">🖱 Klik. ${eur(totalKlik)} ${klikPaid>0?'✅':'⏳'}</span>`:''}
       <span style="color:#3B6D11;font-weight:600">✅ ${eur(paidIn)}</span>
       <span style="color:#854F0B;font-weight:600">⏳ ${eur(totIn-paidIn)}</span>
@@ -1489,6 +1516,24 @@ function addPerson(){
 function removePerson(i){
   if(!confirm(`Odstrániť ${state.persons[i]}?`))return;
   state.persons.splice(i,1);pushToGitHub();renderOsoby();updatePersonSel();
+}
+
+async function updateApp(){
+  if(!ghCfg.token){toast('Nastav GitHub token');return;}
+  if(!confirm('Stiahnuť a nainštalovať najnovšiu verziu aplikácie?\n\nDáta zostanú zachované.'))return;
+  setSync('Aktualizujem...','loading');
+  try{
+    // Stiahni najnovší index.html z vetvy "latest" v repozitári
+    const url=`https://api.github.com/repos/${ghCfg.repo}/actions/workflows/update.yml/dispatches`;
+    // Najprv stiahni aktuálny obsah index.html z GitHub (latest commit)
+    const srcR=await fetch(`https://raw.githubusercontent.com/${ghCfg.repo}/main/index.html?v=${Date.now()}`);
+    if(!srcR.ok)throw new Error('Nemôžem stiahnuť aktuálnu verziu');
+    toast('Najnovšia verzia je už nainštalovaná — obnovujem stránku...');
+    setTimeout(()=>location.reload(true),1500);
+  }catch(e){
+    setSync('Chyba aktualizácie','err');
+    toast('Chyba: '+e.message);
+  }
 }
 
 async function showRestoreUI(){

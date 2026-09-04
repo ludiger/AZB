@@ -901,7 +901,7 @@
         "type": "mesacna",
         "amount": 1100,
         "desc": "SUA26/006439",
-        "paid": false,
+        "paid": true,
         "splitTotal": 1300,
         "splitNow": 1100,
         "splitQtr": 0,

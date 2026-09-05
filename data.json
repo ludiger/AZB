@@ -948,6 +948,19 @@
         "splitQtr": 801.6,
         "splitKlik": 300,
         "gid": "g1788619734240"
+      },
+      {
+        "kind": "income",
+        "firm": "cofidis",
+        "type": "mesacna",
+        "amount": 300,
+        "desc": "50952762",
+        "paid": false,
+        "splitTotal": 1800,
+        "splitNow": 300,
+        "splitQtr": 1500,
+        "splitKlik": 0,
+        "gid": "g1788619803976"
       }
     ],
     "9": [],
@@ -1258,6 +1271,22 @@
       "splitNow": 298.5,
       "splitQtr": 801.6,
       "splitKlik": 300
+    },
+    {
+      "firm": "cofidis",
+      "type": "kvartalna",
+      "amount": 1500,
+      "desc": "50952762",
+      "fromMonth": 8,
+      "qtrKey": "Q3_2025",
+      "payoutMonth": 9,
+      "paid": false,
+      "addedAt": "2026-09-05T14:50:03.976Z",
+      "gid": "g1788619803976",
+      "splitTotal": 1800,
+      "splitNow": 300,
+      "splitQtr": 1500,
+      "splitKlik": 0
     }
   ],
   "klikBasket": [

@@ -1026,6 +1026,19 @@
         "splitQtr": 0,
         "splitKlik": 0,
         "gid": "g1790704257765"
+      },
+      {
+        "kind": "income",
+        "firm": "cofidis",
+        "type": "mesacna",
+        "amount": 749,
+        "desc": "LEFFLEROVÁ MICHAELA",
+        "paid": false,
+        "splitTotal": 749,
+        "splitNow": 749,
+        "splitQtr": 0,
+        "splitKlik": 0,
+        "gid": "g1790704284744"
       }
     ],
     "9": [],

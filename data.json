@@ -1000,6 +1000,19 @@
         "splitQtr": 0,
         "splitKlik": 0,
         "gid": "g1790704120536"
+      },
+      {
+        "kind": "income",
+        "firm": "cofidis",
+        "type": "mesacna",
+        "amount": 896,
+        "desc": "LUDATO FAMILY S. R. O.",
+        "paid": false,
+        "splitTotal": 896,
+        "splitNow": 896,
+        "splitQtr": 0,
+        "splitKlik": 0,
+        "gid": "g1790704225734"
       }
     ],
     "9": [],

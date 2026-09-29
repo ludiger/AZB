@@ -2172,7 +2172,7 @@
       "amount": 200,
       "desc": "SUA26/006439",
       "fromMonth": 7,
-      "paid": false,
+      "paid": true,
       "addedAt": "2026-09-04T08:34:16.318Z",
       "gid": "g1788510856318",
       "splitTotal": 1300,

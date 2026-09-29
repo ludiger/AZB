@@ -987,6 +987,19 @@
         "splitQtr": 0,
         "splitKlik": 50,
         "gid": "g1790704063793"
+      },
+      {
+        "kind": "income",
+        "firm": "stability",
+        "type": "mesacna",
+        "amount": 967.74,
+        "desc": "Ahoj.sk",
+        "paid": false,
+        "splitTotal": 967.74,
+        "splitNow": 967.74,
+        "splitQtr": 0,
+        "splitKlik": 0,
+        "gid": "g1790704120536"
       }
     ],
     "9": [],

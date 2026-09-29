@@ -1013,6 +1013,19 @@
         "splitQtr": 0,
         "splitKlik": 0,
         "gid": "g1790704225734"
+      },
+      {
+        "kind": "income",
+        "firm": "cofidis",
+        "type": "mesacna",
+        "amount": 1276.8,
+        "desc": "MYRTELLO S. R. O.",
+        "paid": false,
+        "splitTotal": 1276.8,
+        "splitNow": 1276.8,
+        "splitQtr": 0,
+        "splitKlik": 0,
+        "gid": "g1790704257765"
       }
     ],
     "9": [],
